@@ -4,7 +4,7 @@ Write your README in markdown, and execute it with specdown. Documentation == Sp
 
 ## Why?
 
-I love README DRIVEN DEVELOPMENT. I love the free-form nature of writing a README. I dislike the process of copying and transforming my README into cucumber. Gherkin works well for some types of requirements, but I dislike turning readable, natural prose into "Given/When/Then" Gherkin. I dislike turning my readable prose into RSpec even more.
+I love README DRIVEN DEVELOPMENT. I love the free-form nature of writing a README. I dislike the process of copying and transforming my README into cucumber. Gherkin works well for many types of requirements, but I dislike turning readable, natural prose into "Given/When/Then" Gherkin. I dislike turning my readable prose into RSpec even more.
 
 ## How?
 
