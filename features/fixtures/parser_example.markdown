@@ -6,11 +6,13 @@ This is an example specdown file.
 
 This section is a child node. It contains some ruby code: 
     
-    raise "specdown error simulation!"
+    "simple code".should_not == nil
 
 ### First Leaf
 
-This section has no code.
+This section has a failure simulation:
+    
+    raise "specdown error simulation!"
 
 ## Last Leaf
 

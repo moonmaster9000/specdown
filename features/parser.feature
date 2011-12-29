@@ -10,19 +10,24 @@ Feature: Specdown Parser
 
       This is an example specdown file.
 
-      \## Leaf 1
+      \## Child Node
 
-      This section is a leaf node. It contains some ruby code:
+      This section is a child node. It contains some ruby code: 
+          
+          "simple code".should_not == nil
 
-          1.should == 1
+      \### First Leaf
 
-      \## Leaf 2
-
-      This section is also a leaf node. It contains some ruby code as well: 
+      This section has a failure simulation:
           
           raise "specdown error simulation!"
 
-      README
+      \## Last Leaf
+
+      This section is a leaf node. It contains some ruby code:
+          
+          1.should == 1
+       README
 
   As you can see, this forms a tree, with "# Specdown Example" at the root of the tree, and "## Leaf 1" and "## Leaf 2" as the children / leafs. 
 
@@ -54,21 +59,23 @@ Feature: Specdown Parser
 
       This is an example specdown file.
 
-      ## First Leaf
-
-      This section is a leaf node. It contains some ruby code:
-
-          1.should == 1
-
       ## Child Node
 
-      This section is also a leaf node. It contains some ruby code as well: 
+      This section is a child node. It contains some ruby code: 
           
-          raise "specdown error simulation!"       
-      
+          "simple code".should_not == nil
+
+      ### First Leaf
+
+      This section has a failure simulation:
+          
+          raise "specdown error simulation!"
+
       ## Last Leaf
 
-      This section has no code.
+      This section is a leaf node. It contains some ruby code:
+          
+          1.should == 1
       """
 
     When I parse it into a tree:
@@ -91,10 +98,10 @@ Feature: Specdown Parser
         last_leaf = @tree.root.children.last
         
         child_node.name.should  == "Child Node"
-        child_node.code.should  == 'raise "specdown error simulation!"'
+        child_node.code.should  == '"simple code".should_not == nil'
 
         first_leaf.name.should  == "First Leaf"
-        first_leaf.code.should  be_empty
+        first_leaf.code.should  == 'raise "specdown error simulation!"'
         
         last_leaf.name.should   == "Last Leaf"
         last_leaf.code.should   == "1.should == 1" 
