@@ -1,28 +1,40 @@
 module Specdown
-  class Runner
-    class Report
-      attr_accessor :exceptions, :tests
-
-      def initialize
-        @tests = 0
-        @exceptions = []
+  class Report
+    def initialize(stats)
+      if stats.kind_of? Array
+        @stats = stats
+      else
+        @stats = [stats]
       end
+    end
+    
+    def generate
+      [
+        format_stat("markdown", markdowns), 
+        format_stat("test", tests), 
+        format_stat("failure", failures)
+      ].join("\n") + "\n\n" + exceptions.join("\n\n")
+    end
+    
+    private
+    def format_stat(word, number)
+      "#{number} #{number == 1 ? word : word + "s"}"
+    end
 
-      def failures
-        @exceptions.length
-      end
+    def tests
+      @tests ||= @stats.inject(0) {|sum, stat| sum += stat.tests}
+    end
 
-      def successes
-        @tests - @exceptions.length
-      end
+    def failures
+      @failures ||= @stats.inject(0) {|sum, stat| sum += stat.failures}
+    end
 
-      def to_s
-        "#{@tests} tests\n"         +
-        "#{successes} #{successes == 1 ? "success" : "successes"}\n"  +
-        "#{failures} #{failures == 1 ? "failure" : "failures"}\n\n"    +
-        @exceptions.map(&:to_s).join("\n")
-      end
-
+    def markdowns
+      @stats.count
+    end
+   
+    def exceptions
+      @stats.collect(&:exceptions).flatten.map {|e| [e.to_s, e.backtrace].join "\n"}
     end
   end
 end

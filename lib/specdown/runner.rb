@@ -1,14 +1,16 @@
 module Specdown
   class Runner
-    attr_reader :report
+    attr_reader :stats
 
     def initialize(tree)
       @tree   = tree
-      @report = Report.new
+      @stats  = Stats.new
     end
 
     def run
       depth_first_search @tree.root
+      puts "\n\n"
+      self
     end
 
     private
@@ -23,7 +25,7 @@ module Specdown
     end
 
     def execute_test(code)
-      @report.tests += 1
+      @stats.tests += 1
       
       begin
         Sandbox.new.instance_eval do
@@ -33,7 +35,7 @@ module Specdown
         print '.'
 
       rescue Exception => e
-        @report.exceptions << e
+        @stats.exceptions << e
 
         print 'F'
       end

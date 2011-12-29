@@ -28,30 +28,21 @@ Feature: Runner
   
   We then parse it into a Specdown::Tree:
       
-      parse_tree = Specdown::Parser.parse markdown
+      parse_tree = Specdown::Parser.parse File.read("/path/to/markdown")
   
   We can now generate a new `Specdown::Runner` instance and run the tests:
 
       runner = Specdown::Runner.new(parse_tree)
       runner.run
 
-  While running, it will print results to STDOUT like "F."
+  While running, it will print results to STDOUT like "F." 
 
-  Lastly we can generate a report of the results:
+  We can access statistics about the run programatically:
       
-      puts runner.report #==>
-        
-        2 tests
-        1 failure
-
-        StandardError: "specdown error simulation!" 
-
-  We can also access data about the report programatically:
-      
-      runner.report.tests                   #==> 2
-      runner.report.failures                #==> 1
-      runner.report.successes               #==> 1
-      runner.report.exceptions.map(&:to_s)  #==> ['StandardError: "specdown error simulation"']
+      runner.stats.tests                   #==> 2
+      runner.stats.failures                #==> 1
+      runner.stats.successes               #==> 1
+      runner.stats.exceptions.map(&:to_s)  #==> ['StandardError: "specdown error simulation"']
 
   Scenario: Running tests
 
@@ -94,22 +85,11 @@ Feature: Runner
       """
         @runner.run
       """
-
-    And I should be able to print a report:
-      """
-        @runner.report.to_s.should == %{
-2 tests
-1 success
-1 failure
-
-(eval):3:in `execute_test': specdown error simulation!
-}.strip
-      """
     
     And I should be able to access the report data programatically:
       """
-      @runner.report.tests                   #==> 2
-      @runner.report.failures                #==> 1
-      @runner.report.successes               #==> 1
-      @runner.report.exceptions.map(&:to_s)  #==> ['(eval):3:in `execute_test': specdown error simulation!']
+      @runner.stats.tests                   #==> 2
+      @runner.stats.failures                #==> 1
+      @runner.stats.successes               #==> 1
+      @runner.stats.exceptions.map(&:to_s)  #==> ['(eval):3:in `execute_test': specdown error simulation!']
       """
