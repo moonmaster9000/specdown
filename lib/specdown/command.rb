@@ -11,14 +11,7 @@ module Specdown
     
     private
     def run
-      @results =
-        @markdowns.map {|markdown| 
-          Parser.parse(File.read(markdown))
-        }.map {|tree| 
-          Runner.new(tree)
-        }.map {|runner|
-          runner.run
-        }.collect &:stats
+      @results = @markdowns.map {|markdown| Runner.new(markdown).run.stats}
     end
 
     def report

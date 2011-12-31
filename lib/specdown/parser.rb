@@ -53,6 +53,7 @@ module Specdown
       until parsed_elements.empty? || (
         parsed_elements.first.type == :header && parsed_elements.first.options[:level] == 1
       )
+        parsed_elements.shift
       end
     end
   end

@@ -142,6 +142,7 @@ You can now replace all of those `raise` with test unit `assert` methods.
 
 This library is the result of about 8 hours worth of work so far :-) It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
 
+* Better stack traces / reporting
 * Test hooks (before/after/around)
 * Run a single test
 * color code the terminal output

@@ -1,15 +1,20 @@
 module Specdown
   class Runner
-    attr_reader :stats
+    attr_reader :stats, :file_path
 
-    def initialize(tree)
-      @tree   = tree
+    def initialize(file_path)
+      @file_path = file_path
+      @tree   = Parser.parse File.read(file_path)
       @stats  = Stats.new
+    end
+
+    def file_name
+      File.basename @file_path
     end
 
     def run
       depth_first_search @tree.root
-      puts "\n\n"
+      EventServer.event :run_complete
       self
     end
 
@@ -32,12 +37,13 @@ module Specdown
           eval code.join("\n")
         end
 
-        print '.'
+        EventServer.event :test_passed
 
       rescue Exception => e
         @stats.exceptions << e
 
-        print 'F'
+        EventServer.event :test_failed
+
       end
     end
   end

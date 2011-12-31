@@ -1,4 +1,4 @@
-Given /^the following specdown example file:$/ do |string|
+Given /^the following specdown example file.*:$/ do |string|
   @readme = File.read "features/fixtures/parser_example.markdown"
 end
 
