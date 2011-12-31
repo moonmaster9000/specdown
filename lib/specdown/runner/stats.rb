@@ -1,8 +1,10 @@
 module Specdown
   class Stats
     attr_accessor :tests, :exceptions
+    attr_reader :runner
 
-    def initialize
+    def initialize(source_runner=nil)
+      @runner = source_runner
       @tests = 0
       @exceptions = []
     end

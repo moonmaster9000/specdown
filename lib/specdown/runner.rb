@@ -5,7 +5,7 @@ module Specdown
     def initialize(file_path)
       @file_path = file_path
       @tree   = Parser.parse File.read(file_path)
-      @stats  = Stats.new
+      @stats  = Stats.new self
     end
 
     def file_name
@@ -33,9 +33,9 @@ module Specdown
       @stats.tests += 1
       
       begin
-        Sandbox.new.instance_eval do
-          eval code.join("\n")
-        end
+        Sandbox.new.instance_eval <<-CODE, file_name
+          #{code.join("\n")}
+        CODE
 
         EventServer.event :test_passed
 

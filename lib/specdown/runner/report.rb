@@ -34,7 +34,16 @@ module Specdown
     end
    
     def exceptions
-      @stats.collect(&:exceptions).flatten.map {|e| [e.to_s, e.backtrace].join "\n"}
+      formatted_exceptions = []
+      @stats.each do |stat|
+        formatted_exceptions << stat.exceptions.map do |e| 
+          [
+            (stat.runner ? "In #{stat.runner.file_name}: " : "") + "<#{e.class}> #{e}", 
+            e.backtrace
+          ].join "\n"
+        end
+      end
+      formatted_exceptions.flatten
     end
   end
 end
