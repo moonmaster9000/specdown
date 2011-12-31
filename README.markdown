@@ -120,7 +120,7 @@ Here's what the second test looked like (#Our first test! --> ##Another Subsecti
         raise "WTF?" unless 1 == 1
         raise "name in scope" if defined? name
 
-### Loading test environment code
+### Using RSpec "should" expectations
 
 If you put a ruby file somewhere inside your "specdown" directory, `specdown` will find it and load it. How is that useful? Perhaps you'd like to use the RSpec expectation library instead of manually raising exceptions in your tests. Simple:
 
@@ -128,6 +128,15 @@ If you put a ruby file somewhere inside your "specdown" directory, `specdown` wi
     $ echo "require 'rspec/expectations'" > specdown/support/env.rb
 
 Now you can remove all of those `raise` with rspec `should` notation.
+
+### Using Test::Unit::Assertions
+
+Create a "specdown/support/env.rb" file in your app, then add the following to it:
+
+    require 'test/unit/assertions'
+    include Test::Unit::Assertions
+
+You can now replace all of those `raise` with test unit `assert` methods.
 
 ## TODO
 
