@@ -162,7 +162,7 @@ You can now use [Test::Unit::Assertions](http://www.ruby-doc.org/stdlib-1.9.3/li
 
 ## TODO
 
-This library is the result of about 8 hours worth of work so far :-) It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
+This library is the result of just a couple of days worth of work. It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
 
 * Better stack traces / reporting
 * Test hooks (before/after/around)
