@@ -6,11 +6,11 @@ Write your README in markdown, and execute it with specdown.
 
 Simply put, `specdown` takes README DRIVEN DEVELOPMENT one step further by making your markdown executable.
 
-If you don't know what README DRIVEN DEVELOPMENT IS, checkout Tom Preston Werner's [README Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
+If you don't know what README DRIVEN DEVELOPMENT IS, checkout Tom Preston Werner's blog post ["README Driven Development"](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
 
 ## CAVEAT
 
-This library is _barely_ released. It's version 0.0.1. You can write your tests with it, but only barely. Stay tuned for more features, or fork and implement them (see the TODO list at the end of this README).
+This library has just been released. It has only a few features, but expect those to grow rapidly over the coming weeks. Follow this repo to stay up to date on the latest changes, or better yet, fork and implement some needed features (see the TODO list at the end of this README).
 
 ## Installation
 
@@ -26,11 +26,13 @@ It comes with a `specdown` command. Try running it. Doesn't matter where.
 
 Let's write a simple test in markdown, and execute it with specdown. Create a "specdown" directory, then save the following text into a file inside of it. I'll assume you're calling it "example.markdown":
 
-    # Our first test!
+```markdown
+# Our first test!
 
-    This is our very first test. It's going to blow your mind.
+This is our very first test. It's going to blow your mind.
 
-        raise "WTF?" unless 1 == 1
+    raise "WTF?" unless 1 == 1
+```
 
 Ok, if you've been following along, then `ls -R` should return the following directory structure:
 
@@ -57,29 +59,31 @@ Booya!
 
 Let's update our README to help illustrate this:
 
-    # Our first test!
+```markdown
+# Our first test!
 
-    This is our very first test. It's going to blow your mind.
+This is our very first test. It's going to blow your mind.
 
-        raise "WTF?" unless 1 == 1
+    raise "WTF?" unless 1 == 1
 
-    ## A Subsection
+## A Subsection
 
-    In this section, we're going to create a variable.
+In this section, we're going to create a variable.
 
-        name = "moonmaster9000"
+    name = "moonmaster9000"
 
-    ### A sub subsection
+### A sub subsection
 
-    In this subsection, we have access to anything created or within scope in parent sections:
+In this subsection, we have access to anything created or within scope in parent sections:
 
-        raise "name not in scope" if !defined? name
+    raise "name not in scope" if !defined? name
 
-    ## Another Subsection
+## Another Subsection
 
-    In this subsection, we don't have access to the "name" variable. Think of your markdown as a tree.
+In this subsection, we don't have access to the "name" variable. Think of your markdown as a tree.
 
-        raise "name in scope" if defined? name
+    raise "name in scope" if defined? name
+```
 
 Read through that. I'm giving you some important scoping hints in it. 
 
@@ -111,32 +115,50 @@ Notice how the headers in your markdown form a tree?
 
 Specdown turned that tree into two tests. The first test (#Our first test! --> ##A Subsection --> ###A sub subsection):
 
-        raise "WTF?" unless 1 == 1
-        name = "moonmaster9000"
-        raise "name not in scope" if !defined? name
+```ruby
+raise "WTF?" unless 1 == 1
+name = "moonmaster9000"
+raise "name not in scope" if !defined? name
+```
 
 Here's what the second test looked like (#Our first test! --> ##Another Subsection)
 
-        raise "WTF?" unless 1 == 1
-        raise "name in scope" if defined? name
+```ruby
+raise "WTF?" unless 1 == 1
+raise "name in scope" if defined? name
+```
 
-### Using RSpec "should" expectations
+## Setting up your test environment
 
-If you put a ruby file somewhere inside your "specdown" directory, `specdown` will find it and load it. How is that useful? Perhaps you'd like to use the RSpec expectation library instead of manually raising exceptions in your tests. Simple:
+Similar to the cucumber testing framework: If you put a ruby file somewhere inside your "specdown" directory, `specdown` will find it and load it.
 
-    $ mkdir specdown/support/
-    $ echo "require 'rspec/expectations'" > specdown/support/env.rb
+### Configuring the Expectation / Assertion framework
 
-Now you can remove all of those `raise` with rspec `should` notation.
+As of version 0.1.0, `specdown` supports both RSpec expectations and Test::Unit assertions. 
 
-### Using Test::Unit::Assertions
+Specdown will default to RSpec expectations, but if it can't find the "rspec" gem installed on your system, it will fall back to Test::Unit assertions.
+
+You can also configure `Specdown` manually to use RSpec expectations or Test::Unit assertions. 
+
+#### RSpec expectations
+
+Create a "support" directory inside your specdown directory, and add an `env.rb` file containing the following Ruby code:
+
+```ruby
+Specdown::Config.expectations = :rspec
+```
+
+You can now use [RSpec expectations](https://www.relishapp.com/rspec/rspec-expectations) in your tests. 
+
+#### Using Test::Unit::Assertions
 
 Create a "specdown/support/env.rb" file in your app, then add the following to it:
 
-    require 'test/unit/assertions'
-    include Test::Unit::Assertions
+```ruby
+Specdown::Config.expectations = :test_unit
+```
 
-You can now replace all of those `raise` with test unit `assert` methods.
+You can now use [Test::Unit::Assertions](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/test/unit/rdoc/Test/Unit/Assertions.html) inside your tests.
 
 ## TODO
 

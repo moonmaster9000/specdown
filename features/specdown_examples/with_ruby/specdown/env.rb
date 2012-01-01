@@ -1,2 +1,1 @@
-require 'rubygems'
-require 'rspec/expectations'
+Specdown::Config.expectations = :test_unit

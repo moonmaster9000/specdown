@@ -18,76 +18,79 @@ Feature: `specdown` command
     
     Given I have a specdown directory containing a single markdown file:
       """
-      # Specdown Example
+        # Specdown Example
 
-      This is an example specdown file.
+        This is an example specdown file.
 
-      ## Child Node
+        ## Child Node
 
-      This section is a child node. It contains some ruby code: 
-          
-          "simple code".should_not == nil
+        This section is a child node. It contains some ruby code: 
+            
+            "simple code".should_not be(nil)
 
-      ### First Leaf
+        ### First Leaf
 
-      This section has a failure simulation:
-          
-          raise "specdown error simulation!"
+        This section has a failure simulation:
+            
+            raise "specdown error simulation!"
 
-      ## Last Leaf
+        ## Last Leaf
 
-      This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+        This section is a leaf node. It contains some ruby code:
+            
+            1.should satisfy(&:odd?)
       """
 
     When I run `specdown` with no arguments
     Then I should see the following output:
       """
+        F.
+
         1 markdown
         2 tests
-        2 failures
+        1 failure
 
-        undefined method `should_not' for "simple code":String
-        undefined method `should' for 1:Fixnum
+        specdown error simulation
       """
 
   Scenario: `specdown` with no arguments, and a specdown directory containing a single ruby file and a single markdown file
     Given I have a specdown directory containing a markdown file:
       """
-      # Specdown Example
+        # Specdown Example
 
-      This is an example specdown file.
+        This is an example specdown file.
 
-      ## Child Node
+        ## Child Node
 
-      This section is a child node. It contains some ruby code: 
-          
-          "simple code".should_not == nil
+        This section is a child node. It contains some ruby code: 
+            
+            "simple code".should_not be(nil)
 
-      ### First Leaf
+        ### First Leaf
 
-      This section has a failure simulation:
-          
-          raise "specdown error simulation!"
+        This section has a failure simulation:
+            
+            raise "specdown error simulation!"
 
-      ## Last Leaf
+        ## Last Leaf
 
-      This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+        This section is a leaf node. It contains some ruby code:
+            
+            1.should satisfy(&:odd?)
       """
     And a single ruby file:
       """
-      require 'rubygems'
-      require 'rspec/expectations'
+        Specdown::Config.expectations = :test_unit
       """
     When I run `specdown` with no arguments
     Then I should see the following output:
       """
+        FF
+
         1 markdown
         2 tests
-        1 failure
+        2 failures
 
-        specdown error simulation!
+        In parser_example.markdown: <NoMethodError> undefined method `be'
+        In parser_example.markdown: <NoMethodError> undefined method `satisfy'
      """

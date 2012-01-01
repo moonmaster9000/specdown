@@ -33,7 +33,7 @@ module Specdown
       @stats.tests += 1
       
       begin
-        Sandbox.new.instance_eval <<-CODE, file_name
+        Specdown.sandbox.instance_eval <<-CODE, file_name
           #{code.join("\n")}
         CODE
 

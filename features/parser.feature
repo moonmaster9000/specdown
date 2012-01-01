@@ -6,27 +6,27 @@ Feature: Specdown Parser
 
       readme = <<-README
       
-      \# Specdown Example
+        \# Specdown Example
 
-      This is an example specdown file.
+        This is an example specdown file.
 
-      \## Child Node
+        \## Child Node
 
-      This section is a child node. It contains some ruby code: 
-          
-          "simple code".should_not == nil
+        This section is a child node. It contains some ruby code: 
+            
+            "simple code".should_not be(nil)
 
-      \### First Leaf
+        \### First Leaf
 
-      This section has a failure simulation:
-          
-          raise "specdown error simulation!"
+        This section has a failure simulation:
+            
+            raise "specdown error simulation!"
 
-      \## Last Leaf
+        \## Last Leaf
 
-      This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+        This section is a leaf node. It contains some ruby code:
+            
+            1.should satisfy(&:odd?)
        README
 
   As you can see, this forms a tree, with "# Specdown Example" at the root of the tree, and "## Leaf 1" and "## Leaf 2" as the children / leafs. 
@@ -55,27 +55,27 @@ Feature: Specdown Parser
 
     Given the following specdown example file:
       """
-      # Specdown Example
+        # Specdown Example
 
-      This is an example specdown file.
+        This is an example specdown file.
 
-      ## Child Node
+        ## Child Node
 
-      This section is a child node. It contains some ruby code: 
-          
-          "simple code".should_not == nil
+        This section is a child node. It contains some ruby code: 
+            
+            "simple code".should_not be(nil)
 
-      ### First Leaf
+        ### First Leaf
 
-      This section has a failure simulation:
-          
-          raise "specdown error simulation!"
+        This section has a failure simulation:
+            
+            raise "specdown error simulation!"
 
-      ## Last Leaf
+        ## Last Leaf
 
-      This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+        This section is a leaf node. It contains some ruby code:
+            
+            1.should satisfy(&:odd?)
       """
 
     When I parse it into a tree:
@@ -98,11 +98,11 @@ Feature: Specdown Parser
         last_leaf = @tree.root.children.last
         
         child_node.name.should  == "Child Node"
-        child_node.code.should  == '"simple code".should_not == nil'
+        child_node.code.should  == '"simple code".should_not be(nil)'
 
         first_leaf.name.should  == "First Leaf"
         first_leaf.code.should  == 'raise "specdown error simulation!"'
         
         last_leaf.name.should   == "Last Leaf"
-        last_leaf.code.should   == "1.should == 1" 
+        last_leaf.code.should   == "1.should satisfy(&:odd?)" 
       """
