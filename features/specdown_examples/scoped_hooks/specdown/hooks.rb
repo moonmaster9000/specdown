@@ -1,3 +1,4 @@
+puts "hooks loading!"
 Specdown.around /fun/ do
   puts "I run before and after fun tests."
 end

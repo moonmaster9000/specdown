@@ -1,8 +1,4 @@
 #!/usr/bin/env ruby
 require 'specdown'
 
-Dir["./specdown/**/*.rb"].each do |ruby_file|
-  load ruby_file
-end
-
 Specdown::Command.new.execute

@@ -210,7 +210,7 @@ end
 
 This library is the result of just a couple of days worth of work. It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
 
-* Run a single test
+* Choose which files to run
 * color code the terminal output
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
 * Better stack traces / reporting
