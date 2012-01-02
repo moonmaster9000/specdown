@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## 0.1.2
+
+New feature added: test hooks. (see the README)
+
 ## 0.1.1 (2012/01/02)
 
 Bug fix: better report formatting for multi-markdown test suites.
