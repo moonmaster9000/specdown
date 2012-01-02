@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## 0.1.1 (2012/01/02)
+
+Bug fix: better report formatting for multi-markdown test suites.
+
 ## 0.1.0 (2012/01/01)
 
 Better Sandboxing of tests, with support for configuring the expectation/assertion framework (RSpec Expectations and Test::Unit asserstions supported)
