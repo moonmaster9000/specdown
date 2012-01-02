@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    specdown (0.1.2)
+    specdown (0.1.3)
       kramdown (~> 0.13.4)
 
 GEM

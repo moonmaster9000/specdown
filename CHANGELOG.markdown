@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+## 0.1.3
+
+The `specdown` command now accepts two options: -h and -r. 
+
+    Usage: specdown [file1 [file2 [file3....]]]
+        -r, --root SPECDOWN_DIR          defaults to ./specdown
+        -h, --help                       Display this screen
+
 ## 0.1.2
 
 New feature added: test hooks. (see the README)
