@@ -160,12 +160,50 @@ Specdown::Config.expectations = :test_unit
 
 You can now use [Test::Unit::Assertions](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/test/unit/rdoc/Test/Unit/Assertions.html) inside your tests.
 
+## Test hooks (before/after/around)
+
+You can create test hooks that run before, after, and around tests. You can create global hooks, or hooks that run only for specific specdown files.
+
+### Global hooks
+
+To create a global before hook, use the `Specdown.before` method:
+
+    Specdown.before do
+      puts "I run before every single test!"
+    end
+
+That before hook will - you guessed it - RUN BEFORE EVERY SINGLE TEST.
+
+Similary, you can run some code after every single test via the `Specdown.after` method:
+
+    Specdown.after do
+      puts "I run after every single test!"
+    end
+
+Whenever you need some code to run before _and_ after every single test, use the `Specdown.around` method:
+
+    Specdown.around do
+      puts "I run before _AND_ after every single test!"
+    end
+
+### Scoping your hooks to specific markdown files
+
+You might, at times, want hooks to run only for certain files. 
+
+You can pass filenames (or regular expressions) to the `Specdown.before`, `Specdown.after`, and `Specdown.around` methods. The hooks will then execute whenever you execute any markdown file with matching filenames.
+
+    Specdown.before "somefile.markdown", /^.*\.database.markdown$/ do
+      puts "This runs before every test within 'somefile.markdown', and
+            before every test in any markdown file whose filename ends 
+            with '.database.markdown'"
+    end
+
+
 ## TODO
 
 This library is the result of just a couple of days worth of work. It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
 
-* Better stack traces / reporting
-* Test hooks (before/after/around)
 * Run a single test
 * color code the terminal output
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
+* Better stack traces / reporting

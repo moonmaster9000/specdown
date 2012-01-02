@@ -13,15 +13,18 @@ module Specdown
     end
 
     def run
+      EventServer.event :run_starting, self
       depth_first_search @tree.root
-      EventServer.event :run_complete
+      EventServer.event :run_complete, self
       self
     end
 
     private
     def depth_first_search(node, code=[])
       if node.children.empty?
+        EventServer.event :before_test, self
         execute_test(code + [node.code])
+        EventServer.event :after_test, self
       else
         node.children.each do |child|
           depth_first_search(child, (code + [node.code]))
@@ -37,13 +40,12 @@ module Specdown
           #{code.join("\n")}
         CODE
 
-        EventServer.event :test_passed
+        EventServer.event :test_passed, self
 
       rescue Exception => e
         @stats.exceptions << e
 
-        EventServer.event :test_failed
-
+        EventServer.event :test_failed, self
       end
     end
   end

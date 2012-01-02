@@ -1,0 +1,1 @@
+Specdown::Config.expectations = :rspec

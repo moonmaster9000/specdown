@@ -1,3 +1,3 @@
 Before do
-  Specdown::Config.reset!
+  Specdown.reset!
 end
