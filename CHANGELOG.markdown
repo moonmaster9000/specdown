@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-## 0.1.3
+## 0.1.3 (2012/01/02)
 
 The `specdown` command now accepts two options: -h and -r. 
 
@@ -8,7 +8,7 @@ The `specdown` command now accepts two options: -h and -r.
         -r, --root SPECDOWN_DIR          defaults to ./specdown
         -h, --help                       Display this screen
 
-## 0.1.2
+## 0.1.2 (2012/01/02)
 
 New feature added: test hooks. (see the README)
 
