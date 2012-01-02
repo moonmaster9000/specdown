@@ -168,23 +168,29 @@ You can create test hooks that run before, after, and around tests. You can crea
 
 To create a global before hook, use the `Specdown.before` method:
 
-    Specdown.before do
-      puts "I run before every single test!"
-    end
+```ruby
+Specdown.before do
+  puts "I run before every single test!"
+end
+```
 
 That before hook will - you guessed it - RUN BEFORE EVERY SINGLE TEST.
 
 Similary, you can run some code after every single test via the `Specdown.after` method:
 
-    Specdown.after do
-      puts "I run after every single test!"
-    end
+```ruby
+Specdown.after do
+  puts "I run after every single test!"
+end
+```
 
 Whenever you need some code to run before _and_ after every single test, use the `Specdown.around` method:
 
-    Specdown.around do
-      puts "I run before _AND_ after every single test!"
-    end
+```ruby
+Specdown.around do
+  puts "I run before _AND_ after every single test!"
+end
+```
 
 ### Scoping your hooks to specific markdown files
 
@@ -192,12 +198,13 @@ You might, at times, want hooks to run only for certain files.
 
 You can pass filenames (or regular expressions) to the `Specdown.before`, `Specdown.after`, and `Specdown.around` methods. The hooks will then execute whenever you execute any markdown file with matching filenames.
 
-    Specdown.before "somefile.markdown", /^.*\.database.markdown$/ do
-      puts "This runs before every test within 'somefile.markdown', and
-            before every test in any markdown file whose filename ends 
-            with '.database.markdown'"
-    end
-
+```ruby
+Specdown.before "somefile.markdown", /^.*\.database.markdown$/ do
+  puts "This runs before every test within 'somefile.markdown', and
+        before every test in any markdown file whose filename ends 
+        with '.database.markdown'"
+end
+```
 
 ## TODO
 
