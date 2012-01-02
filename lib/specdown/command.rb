@@ -6,16 +6,12 @@ module Specdown
 
     def execute
       run
-      report
+      Specdown::EventServer.event :command_complete, @results
     end
     
     private
     def run
       @results = @markdowns.map {|markdown| Runner.new(markdown).run.stats}
-    end
-
-    def report
-      puts Specdown::Report.new(@results).generate
     end
   end
 end
