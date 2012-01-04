@@ -1,4 +1,8 @@
-Given /^the following Specdown::Stats instance:$/ do |string|
+Given /^the following runner:$/ do |string|
+  eval string
+end
+
+When /^I run the tests in the runner:$/ do |string|
   eval string
 end
 

@@ -6,6 +6,36 @@ module Specdown
     attr_accessor :tests
     attr_accessor :root
     
+    def reset!
+      self.expectations = nil
+    end
+
+    def root
+      @root ||= "specdown"
+    end
+
+    def root=(new_root)
+      @root = strip_trailing_slash new_root
+    end
+
+    def tests
+      @tests ||= find_tests_in root
+    end
+
+    def tests=(test_files)
+      unless test_files.empty?
+        @tests = test_files
+
+        @tests.map! do |test_dir|
+          if File.directory? test_dir
+            find_tests_in test_dir
+          else
+            test_dir
+          end
+        end.flatten!
+      end
+    end
+    
     def test_environment_files
       unless @test_environment_files
         @test_environment_files = Dir["#{root}/**/*.rb"]
@@ -16,29 +46,19 @@ module Specdown
 
       @test_environment_files
     end
-    
-    def root
-      @root ||= "specdown"
+
+    private
+    def find_tests_in(directory)
+      directory = strip_trailing_slash directory
+      Dir["#{directory}/**/*.markdown"] + Dir["#{directory}/**/*.md"]
     end
 
-    def root=(new_root)
-      if new_root[-1..-1] == "/"
-        @root = new_root[0...-1]
+    def strip_trailing_slash(string)
+      if string[-1..-1] == "/"
+        string[0...-1]
       else
-        @root = new_root
+        string
       end
-    end
-
-    def tests
-      @tests ||= Dir["#{root}/**/*.markdown"] + Dir["#{root}/**/*.md"]
-    end
-
-    def tests=(test_files)
-      @tests = test_files unless test_files.empty?
-    end
-
-    def reset!
-      self.expectations = nil
     end
   end
 end

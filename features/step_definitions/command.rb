@@ -4,7 +4,7 @@ end
 
 Then /^I should see the following output:$/ do |string|
   string.split("\n").each do |line|
-    @output.include?(line.strip).should be(true)
+    @output.should include(line.strip)
   end
 end
 
@@ -18,4 +18,12 @@ end
 
 Given /^a single ruby file:$/ do |string|
   @directory = "features/specdown_examples/with_ruby/"
+end
+
+Given /^I have a specdown directory 'specdown\/tests' containing 3 markdown files, each with 1 passing test$/ do
+  @directory = "features/specdown_examples/nested_directories_test/"
+end
+
+When /^I run `(.*)`$/ do |command|
+  @output = `cd #{@directory} && bundle exec ruby -I ../../../lib ../../../bin/#{command}`
 end

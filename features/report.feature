@@ -1,16 +1,40 @@
 Feature: Report
   
-  Specdown comes with a generic reporting class. If you provide it with a runner's Specdown::Stats object (or an array of Specdown::Stats objects), then it will generate a report for you. 
+  Specdown comes with a generic reporting class. If you provide it with a runner (or an array of runners), then it will generate a report for you. 
 
-  For example, suppose we have the following Specdown::Stats instance:
+  
+  For example, suppose we have the following markdown file:
+      
+      \# Specdown Example
 
-      stats = Specdown::Stats.new
-      stats.tests = 3
-      stats.exceptions = [StandardError.new("error simulation")]
+      This is an example specdown file.
+
+      \## Child Node
+
+      This section is a child node. It contains some ruby code: 
+          
+          "simple code".should_not == nil
+
+      \### First Leaf
+
+      This section has a failure simulation:
+          
+          raise "specdown error simulation!"
+
+      \## Last Leaf
+
+      This section is a leaf node. It contains some ruby code:
+          
+          1.should == 1
+  
+  If we create a Specdown::Runner instance from it and run it:
+
+      runner = Specdown::Runner.new("/features/fixtures/parser_example.markdown")
+      runner.run
 
   We could then pass it off to our reporter class and receive the following report:
 
-      Specdown::Report.new(stats).generate.should == %{
+      Specdown::Report.new(runner).generate.should == %{
           1 markdown
           3 tests
           2 successes
@@ -21,37 +45,46 @@ Feature: Report
 
   
   Scenario: A Specdown::Report instantiated with a single stats object
-    
-    Given the following Specdown::Stats instance:
+
+    Given the following specdown example file located at 'features/fixtures/parser_example.markdown':
       """
-        @stats        = Specdown::Stats.new
-        @stats.tests  = 3
-        @stats.exceptions << StandardError.new("error simulation")
+      # Specdown Example
+
+      This is an example specdown file.
+
+      ## Child Node
+
+      This section is a child node. It contains some ruby code: 
+          
+          "simple code".should_not == nil
+
+      ### First Leaf
+
+      This section has a failure simulation:
+          
+          raise "specdown error simulation!"
+
+      ## Last Leaf
+
+      This section is a leaf node. It contains some ruby code:
+          
+          1.should == 1
+      """
+    
+    And the following runner:
+      """
+        @runner = Specdown::Runner.new("features/fixtures/parser_example.markdown")
       """
 
-    Then `Specdown::Report.new(@stats).generate` should include the following output:
+    When I run the tests in the runner:
+      """
+        @runner.run
+      """
+
+    Then `Specdown::Report.new(@runner).generate` should include the following output:
       """
         1 markdown
-        3 tests
-        1 failure
-
-        error simulation
-      """
-
-  Scenario: A Specdown::Report instantiated with an array of stats
-
-    Given the following of Specdown::Stats instances:
-      """
-        @results = [
-          Specdown::Stats.new.tap {|s| s.tests = 3 },
-          Specdown::Stats.new.tap {|s| s.tests = 1; s.exceptions << StandardError.new("error simulation") }
-        ]
-      """
-    
-    Then `Specdown::Report.new(@results).generate` should include the following output:
-      """
-        2 markdowns
-        4 tests
+        2 tests
         1 failure
 
         error simulation

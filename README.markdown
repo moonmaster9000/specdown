@@ -10,7 +10,7 @@ If you don't know what README DRIVEN DEVELOPMENT IS, checkout Tom Preston Werner
 
 ## CAVEAT
 
-This library has just been released. It has only a few features, but expect those to grow rapidly over the coming weeks. Follow this repo to stay up to date on the latest changes, or better yet, fork and implement some needed features (see the TODO list at the end of this README).
+This library is very new. It has only a few features, but it's growing rapidly. Follow this repo to stay up to date on the latest changes, or better yet, fork and implement some needed features (see the TODO list at the end of this README).
 
 ## Installation
 
@@ -206,11 +206,29 @@ Specdown.before "somefile.markdown", /^.*\.database.markdown$/ do
 end
 ```
 
+## specdown command line
+
+You can run `specdown -h` at the command line to get USAGE and options.
+
+If you run `specdown` without any arguments, specdown will look for a "specdown" directory inside your current working directory, then search for any markdown files inside of it, and also load any ruby files inside of it.
+
+If you want to run just a single file or a set of files, or a directory of files, simply pass them on the command line:
+
+```sh
+$ specdown specdown/test.markdown
+$ specdown specdown/unit_tests
+```
+
+You can use the `-r` flag to specify the root of the specdown directory (it defaults to "specdown/"). 
+
+```sh
+$ specdown test.markdown -r specdown_environment/
+```
+
 ## TODO
 
-This library is the result of just a couple of days worth of work. It's a basic minimum viable product, but there are tons of features I want to implement. Here's what's on my immediate horizon:
+This library is still very new, but we are rapidly adding features to it. Here's what is on the immediate horizon:
 
-* Choose which files to run
 * color code the terminal output
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
 * Better stack traces / reporting

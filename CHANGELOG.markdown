@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 0.1.4
+
+The `specdown` command now allows you to pass off directories of tests as well as individual tests.
+
+    specdown specdown/subdir/ specdown/test1.md specdown/subdir2/*.markdown
+
 ## 0.1.3 (2012/01/02)
 
 The `specdown` command now accepts two options: -h and -r. 

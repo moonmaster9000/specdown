@@ -18,8 +18,16 @@ module Specdown
     end
 
     def run
-      @results = Specdown::Config.tests.map {|markdown| Runner.new(markdown).run.stats}
-      Specdown::EventServer.event :command_complete, @results
+      @results = []
+      
+      Kernel.at_exit do
+        Specdown::EventServer.event :command_complete, @results
+      end
+      
+      Specdown::Config.tests.each do |markdown| 
+        @results << Runner.new(markdown)
+        @results.last.run
+      end
     end
   end
 end

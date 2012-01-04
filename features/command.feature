@@ -94,3 +94,17 @@ Feature: `specdown` command
         In parser_example.markdown: <NoMethodError> undefined method `be'
         In parser_example.markdown: <NoMethodError> undefined method `satisfy'
      """
+
+
+  @focus
+  Scenario: `specdown` command invoked with a directory
+    Given I have a specdown directory 'specdown/tests' containing 3 markdown files, each with 1 passing test
+    When I run `specdown specdown/tests`
+    Then I should see the following output:
+      """
+        ...
+
+        3 markdowns
+        3 tests
+        0 failures
+      """

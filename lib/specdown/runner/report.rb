@@ -1,11 +1,8 @@
 module Specdown
   class Report
-    def initialize(stats)
-      if stats.kind_of? Array
-        @stats = stats
-      else
-        @stats = [stats]
-      end
+    def initialize(runners)
+      runners = [runners] unless runners.respond_to?(:map)
+      @stats = runners.map &:stats
     end
     
     def generate
