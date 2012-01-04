@@ -36,13 +36,16 @@ This is our very first test. It's going to blow your mind.
 
 Ok, if you've been following along, then `ls -R` should return the following directory structure:
 
-    $ ls -R
-      
-      specdown/
-        example.markdown
+```sh
+$ ls -R
+  
+  specdown/
+    example.markdown
+```
 
 Great. Now run the `specdown` command:
 
+```sh
     $ specdown
 
         .
@@ -50,6 +53,7 @@ Great. Now run the `specdown` command:
         1 markdown
         1 test
         0 failures
+```
 
 Booya!
 
@@ -89,16 +93,19 @@ Read through that. I'm giving you some important scoping hints in it.
 
 Save it, run it.
 
-    $ specdown
+```sh
+$ specdown
 
-        ..
-        
-        1 markdown
-        2 tests
-        0 failures
+    ..
+    
+    1 markdown
+    2 tests
+    0 failures
+```
 
 Notice how the headers in your markdown form a tree?
 
+```sh
                 #Our first test!
                     /    \
                    /      \
@@ -112,6 +119,7 @@ Notice how the headers in your markdown form a tree?
            /
           /
     ###A sub subsection
+```
 
 Specdown turned that tree into two tests. The first test (#Our first test! --> ##A Subsection --> ###A sub subsection):
 
