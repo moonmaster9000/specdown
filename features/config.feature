@@ -35,6 +35,34 @@ Feature: Specdown::Config
         assert_equal 1, 1
       end 
 
+  \### Colorized Terminal Output
+
+  By default, Specdown will colorize your terminal output. If you'd prefer Specdown not to colorize your terminal output, simply set the `colorize` to false:
+
+      Specdown.colorize = false
+
+  Scenario: Specdown::Config defaults
+    
+    * Specdown::Config.colorize:
+      """
+        true
+      """
+
+    * Specdown::Config.expectations default:
+      """
+        nil
+      """
+
+    * Specdown::Config.report_format:
+      """
+        :text
+      """
+
+    * Specdown::Config.report_output:
+      """
+        STDOUT
+      """
+
 
   Scenario: Reset the Specdown::Config
 

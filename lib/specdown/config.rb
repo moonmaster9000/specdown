@@ -5,6 +5,8 @@ module Specdown
     attr_accessor :expectations
     attr_accessor :tests
     attr_accessor :root
+    attr_accessor :report_format
+    attr_accessor :colorize
     
     def reset!
       self.expectations = nil
