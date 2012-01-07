@@ -37,38 +37,21 @@ Feature: Specdown::Config
 
   \### Colorized Terminal Output
 
-  By default, Specdown will colorize your terminal output. If you'd prefer Specdown not to colorize your terminal output, simply set the `colorize` to false:
+  By default, Specdown will colorize your terminal output. If you'd prefer Specdown not to colorize your terminal output, simply set the `reporter` to `:terminal`:
 
-      Specdown.colorize = false
+      Specdown.reporter == :terminal
 
   Scenario: Specdown::Config defaults
-    
-    * Specdown::Config.colorize:
-      """
-        true
-      """
-
-    * Specdown::Config.expectations default:
-      """
-        nil
-      """
-
-    * Specdown::Config.report_format:
-      """
-        :text
-      """
-
-    * Specdown::Config.report_output:
-      """
-        STDOUT
-      """
-
+    * Specdown::Config.expectations #==> nil
+    * Specdown::Config.reporter     #==> :color_terminal
+    * Specdown::Config.root         #==> "specdown"
 
   Scenario: Reset the Specdown::Config
-
     Given I have configured Specdown:
       """
         Specdown::Config.expectations = :rspec
+        Specdown::Config.reporter     = :html
+        Specdown::Config.root         = "dir/"
       """
 
     When I reset Specdown:
@@ -76,11 +59,12 @@ Feature: Specdown::Config
         Specdown::Config.reset!
       """
 
-    Then my specdown configuration should return to it's defaults:
+    Then my specdown configuration should return to its defaults:
       """
-        Specdown::Config.expectations.should be(nil)
+        Specdown::Config.expectations.should == nil
+        Specdown::Config.reporter.should     == :color_terminal
+        Specdown::Config.root.should         == "specdown"
       """
-
 
   Scenario: Default to Rspec expectations
 
