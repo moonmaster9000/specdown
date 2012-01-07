@@ -60,11 +60,9 @@ Feature: Specdown::Config
       """
 
     Then my specdown configuration should return to its defaults:
-      """
-        Specdown::Config.expectations.should == nil
-        Specdown::Config.reporter.should     == :color_terminal
-        Specdown::Config.root.should         == "specdown"
-      """
+      * Specdown::Config.expectations #==> nil
+      * Specdown::Config.reporter     #==> :color_terminal
+      * Specdown::Config.root         #==> "specdown"
 
   Scenario: Default to Rspec expectations
 

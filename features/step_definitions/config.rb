@@ -6,8 +6,7 @@ When /^I reset Specdown:$/ do |string|
   eval string
 end
 
-Then /^my specdown configuration should return to its defaults:$/ do |string|
-  eval string
+Then /^my specdown configuration should return to its defaults:$/ do
 end
 
 Given /^I have rspec installed$/ do
