@@ -1,5 +1,6 @@
 require 'kramdown'
 require 'term/ansicolor'
+require 'erb'
 require 'optparse'
 require 'specdown/parser'
 require 'specdown/node'

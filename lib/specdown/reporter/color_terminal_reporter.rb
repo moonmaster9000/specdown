@@ -7,6 +7,11 @@ module Specdown
     def failure
       super.red.bold
     end
+
+    private
+    def template
+      ERB.new File.read(File.join(File.dirname(__FILE__), "../templates/color_summary.erb"))
+    end
   end
 end
 

@@ -91,8 +91,8 @@ Feature: `specdown` command
         2 tests
         2 failures
 
-        In parser_example.markdown: <NoMethodError> undefined method `be'
-        In parser_example.markdown: <NoMethodError> undefined method `satisfy'
+        In parser_example.markdown: <#NoMethodError> undefined method `be'
+        In parser_example.markdown: <#NoMethodError> undefined method `satisfy'
      """
 
 
