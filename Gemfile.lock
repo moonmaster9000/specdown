@@ -3,6 +3,7 @@ PATH
   specs:
     specdown (0.1.4)
       kramdown (~> 0.13.4)
+      term-ansicolor (~> 1.0.7)
 
 GEM
   remote: http://rubygems.org/

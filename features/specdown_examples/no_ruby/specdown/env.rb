@@ -1,0 +1,1 @@
+Specdown::Config.reporter = :terminal

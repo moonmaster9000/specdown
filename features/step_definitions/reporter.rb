@@ -16,3 +16,11 @@ end
 Given /^the following of Specdown::Stats instances:$/ do |string|
   eval string
 end
+
+Then /^`Specdown::Reporter\.new\.summary\(@runner\)` should return a report summary object:$/ do |string|
+  eval string
+end
+
+Then /^the generic reporter shouldn't actually print anything:$/ do |string|
+  eval string
+end

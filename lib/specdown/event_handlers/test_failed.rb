@@ -1,3 +1,3 @@
 Specdown::EventServer.register :test_failed do
-  print "F"
+  Specdown.reporter.print_failure nil
 end

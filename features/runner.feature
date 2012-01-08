@@ -83,5 +83,5 @@ Feature: Runner
       @runner.stats.tests.should == 2
       @runner.stats.failures.should == 1
       @runner.stats.successes.should == 1
-      @runner.stats.exceptions.map(&:to_s).should == ["specdown error simulation!"]
+      @runner.stats.exceptions.map(&:exception_message).should == ["specdown error simulation!"]
       """
