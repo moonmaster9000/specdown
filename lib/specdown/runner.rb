@@ -43,7 +43,7 @@ module Specdown
         EventServer.event :test_passed, self
 
       rescue Exception => e
-        @stats.exceptions << e
+        @stats.exceptions << ExceptionFacade.new(e, self)
 
         EventServer.event :test_failed, self
       end

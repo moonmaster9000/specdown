@@ -1,0 +1,14 @@
+
+
+---------------------------------------------------------------------------
+<%= format_stat("markdown", @report_summary.num_markdowns)    %>
+<%= format_stat("test",     @report_summary.num_tests)        %>
+<%= format_stat("success",  @report_summary.num_successes)    %>
+<%= format_stat("failure",  @report_summary.num_failures)     %>
+---------------------------------------------------------------------------
+<% runners.map(&:stats).each do |stat| %>
+<% stat.exceptions.each do |e| %>
+In <%=e.test_filename%>: <#<%=e.exception_class%>> <%=e.exception_message%>
+<%= e.exception_backtrace.join "\n" %>
+<% end %>
+<% end %>

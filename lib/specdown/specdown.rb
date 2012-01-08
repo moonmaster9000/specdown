@@ -10,6 +10,10 @@ module Specdown
     SandboxFactory.generate
   end
 
+  def reporter
+    @reporter ||= ReporterFactory.generate
+  end
+
   def before(*filters, &callback)
     Hooks.before << Hook.new(*filters, &callback)
   end

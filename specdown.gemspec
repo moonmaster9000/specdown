@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.executables << "specdown"
 
   s.add_dependency "kramdown", "~> 0.13.4"
+  s.add_dependency "term-ansicolor", "~> 1.0.7"
   
   s.add_development_dependency "cucumber"
   s.add_development_dependency "rspec"

@@ -1,0 +1,15 @@
+
+
+---------------------------------------------------------------------------
+<%= format_stat("markdown", @report_summary.num_markdowns).bold   %>
+<%= format_stat("test",     @report_summary.num_tests).bold       %>
+<%= format_stat("success",  @report_summary.num_successes).green  %>
+<%= format_stat("failure",  @report_summary.num_failures).red     %>
+---------------------------------------------------------------------------
+
+<% runners.map(&:stats).each do |stat| %>
+<% stat.exceptions.each do |e| %>
+<%= "In #{e.test_filename}".blue.bold %>: <%= "#<#{e.exception_class}>:".red.bold%> <%=e.exception_message%>
+<%= e.exception_backtrace.join("\n").red %>
+<% end %>
+<% end %>

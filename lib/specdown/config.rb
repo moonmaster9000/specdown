@@ -5,9 +5,16 @@ module Specdown
     attr_accessor :expectations
     attr_accessor :tests
     attr_accessor :root
+    attr_accessor :reporter
+
+    def reporter
+      @reporter ||= :color_terminal
+    end
     
     def reset!
-      self.expectations = nil
+      @expectations = nil
+      @reporter     = nil
+      @root         = nil
     end
 
     def root

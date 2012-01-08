@@ -1,7 +1,6 @@
-Feature: Report
+Feature: Reporter
   
-  Specdown comes with a generic reporting class. If you provide it with a runner (or an array of runners), then it will generate a report for you. 
-
+  Specdown comes with a generic reporting class. By itself, the Specdown::Reporter does little (most methods throw a `NotImplementedError` exception). However, the `Specdown::ReporterFactory` will generate an instance of this class, then decorate based on your configuration.
   
   For example, suppose we have the following markdown file:
       
@@ -32,19 +31,17 @@ Feature: Report
       runner = Specdown::Runner.new("/features/fixtures/parser_example.markdown")
       runner.run
 
-  We could then pass it off to our reporter class and receive the following report:
+  We could then retrieve a report summary like so:
 
-      Specdown::Report.new(runner).generate.should == %{
-          1 markdown
-          3 tests
-          2 successes
-          1 failure
+      Specdown::Reporter.new.summary(runner).class.should == Specdown::ReportSummary
 
-          StandardError: error simulation
-      %}
+  The generic reporter doesn't actually print anything:
+      
+      proc { Specdown::Reporter.new.print_summary(runner) }.should raise_exception(NotImplementedError)
+      proc { Specdown::Reporter.new.print_success(test)   }.should raise_exception(NotImplementedError)
+      proc { Specdown::Reporter.new.print_failure(test)   }.should raise_exception(NotImplementedError)
 
-  
-  Scenario: A Specdown::Report instantiated with a single stats object
+  Scenario: A Specdown::Reporter instantiated with a single stats object
 
     Given the following specdown example file located at 'features/fixtures/parser_example.markdown':
       """
@@ -81,11 +78,15 @@ Feature: Report
         @runner.run
       """
 
-    Then `Specdown::Report.new(@runner).generate` should include the following output:
+    Then `Specdown::Reporter.new.summary(@runner)` should return a report summary object:
       """
-        1 markdown
-        2 tests
-        1 failure
+        @reporter = Specdown::Reporter.new
+        @reporter.summary(@runner).class.should == Specdown::ReportSummary
+      """
 
-        error simulation
+    And the generic reporter shouldn't actually print anything:
+      """
+        proc { @reporter.print_summary(nil) }.should raise_exception(NotImplementedError)
+        proc { @reporter.print_success(nil) }.should raise_exception(NotImplementedError)
+        proc { @reporter.print_failure(nil) }.should raise_exception(NotImplementedError)
       """

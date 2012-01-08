@@ -6,8 +6,7 @@ When /^I reset Specdown:$/ do |string|
   eval string
 end
 
-Then /^my specdown configuration should return to it's defaults:$/ do |string|
-  eval string
+Then /^my specdown configuration should return to its defaults:$/ do
 end
 
 Given /^I have rspec installed$/ do
@@ -31,4 +30,8 @@ end
 
 Then /^Specdown should provide Test::Unit assertions within the sandbox:$/ do |string|
   eval string
+end
+
+Given /^Specdown::Config\.([^\ ]+)\ *#==>\ *(.*)$/ do |config_key, default_value|
+  Specdown::Config.send(config_key).should == eval(default_value)
 end

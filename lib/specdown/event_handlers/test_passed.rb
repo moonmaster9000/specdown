@@ -1,3 +1,3 @@
 Specdown::EventServer.register :test_passed do
-  print "."
+  Specdown.reporter.print_success nil
 end
