@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+## 0.1.5
+
+Terminal output is now colorized, by default. To turn it off, add the following to your env.rb:
+
+    Specdown::Config.reporter = :terminal
+
 ## 0.1.4
 
 The `specdown` command now allows you to pass off directories of tests as well as individual tests.
