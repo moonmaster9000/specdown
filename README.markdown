@@ -220,6 +220,8 @@ You can run `specdown -h` at the command line to get USAGE and options.
 
 If you run `specdown` without any arguments, specdown will look for a "specdown" directory inside your current working directory, then search for any markdown files inside of it, and also load any ruby files inside of it.
 
+### Running specific files (or directories)
+
 If you want to run just a single file or a set of files, or a directory of files, simply pass them on the command line:
 
 ```sh
@@ -227,11 +229,31 @@ $ specdown specdown/test.markdown
 $ specdown specdown/unit_tests
 ```
 
+### Overriding the default root directory
+
 You can use the `-r` flag to specify the root of the specdown directory (it defaults to "specdown/"). 
 
 ```sh
 $ specdown test.markdown -r specdown_environment/
 ```
+
+### Output Format
+
+By default, `specdown` will output colorized terminal output. If you'd rather the output not be colorized, you can use the `-f terminal` switch:
+
+```sh
+$ specdown -f plain
+```
+
+The default format is `color`.
+
+You can also configure the report format in your Ruby code:
+
+```ruby
+Specdown::Config.reporter = :terminal
+```
+
+Note that this defaults to `:color_terminal`. Also, please note that command line options take precedence.
 
 ## TODO
 

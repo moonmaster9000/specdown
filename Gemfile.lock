@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    specdown (0.1.4)
+    specdown (0.1.5)
       kramdown (~> 0.13.4)
       term-ansicolor (~> 1.0.7)
 

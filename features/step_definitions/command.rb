@@ -24,6 +24,22 @@ Given /^I have a specdown directory 'specdown\/tests' containing 3 markdown file
   @directory = "features/specdown_examples/nested_directories_test/"
 end
 
+Given /^I am in a directory with a 'specdown' folder$/ do
+  @directory = "features/specdown_examples/format_switch_test/"
+end
+
 When /^I run `(.*)`$/ do |command|
   @output = `cd #{@directory} && bundle exec ruby -I ../../../lib ../../../bin/#{command}`
+end
+
+Then /^I should not see colorized output$/ do
+  raise "Oops! Output is colorized!" if colorized?(@output)
+end
+
+Then /^I should see colorized output$/ do
+  raise "Oops! Output is not colorized!" unless colorized?(@output)
+end
+
+def colorized?(output)
+  output.include? "\e[1m"
 end
