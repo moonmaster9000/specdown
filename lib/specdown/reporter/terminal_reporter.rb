@@ -18,7 +18,8 @@ module Specdown
 
     def print_summary(runners)
       @report_summary = summary(runners)
-      template.run(proc {})
+      bounding = binding rescue proc {}
+      template.run bounding
     end
     
     private
