@@ -1,5 +1,13 @@
 ## CHANGELOG
 
+## 0.1.6
+
+Command line option (-f or --format) for output format (plain|color).
+
+Command line option (-v or --version) for specdown version.
+
+Also, created an API for sandbox decoration. Send me your pull requests :-)
+
 ## 0.1.5
 
 Terminal output is now colorized, by default. To turn it off, add the following to your env.rb:
@@ -16,7 +24,7 @@ The `specdown` command now allows you to pass off directories of tests as well a
 
 The `specdown` command now accepts two options: -h and -r. 
 
-    Usage: specdown [file1 [file2 [file3....]]]
+    Usage: specdown [file|dir [file|dir [file|dir....]]]
         -r, --root SPECDOWN_DIR          defaults to ./specdown
         -h, --help                       Display this screen
 

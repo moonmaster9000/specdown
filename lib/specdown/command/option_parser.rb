@@ -23,8 +23,13 @@ module Specdown
           end
         end
 
-        opts.on '-h', '--help', 'Display this screen'  do
+        opts.on_tail '-h', '--help', 'Display this screen'  do
           puts opts
+          exit
+        end
+
+        opts.on_tail "-v", "--version", "Show version" do
+          puts File.read(File.join(File.dirname(__FILE__), "../../../VERSION"))
           exit
         end
       end

@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.homepage  = "http://github.com/moonmaster9000/specdown"
   s.version   = File.read "VERSION"
 
-  s.files             = Dir["lib/**/*"] + Dir["bin/**/*"]
+  s.files             = ["VERSION"] + Dir["lib/**/*"] + Dir["bin/**/*"]
   s.test_files        = Dir["features/**/*"]
   s.extra_rdoc_files  = Dir["*.markdown"]
   s.executables << "specdown"
