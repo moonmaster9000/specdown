@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## 0.1.7
+
+Working on all Rubies.
+
 ## 0.1.6
 
 Command line option (-f or --format) for output format (plain|color).
