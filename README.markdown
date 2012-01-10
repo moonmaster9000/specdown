@@ -1,5 +1,7 @@
 # specdown
 
+[![Build Status](https://secure.travis-ci.org/moonmaster9000/specdown.png)](http://travis-ci.org/moonmaster9000/specdown)
+
 Write your README in markdown, and execute it with specdown. 
 
 ## Why?
