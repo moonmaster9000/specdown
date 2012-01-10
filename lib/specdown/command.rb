@@ -1,8 +1,8 @@
 module Specdown
   class Command
     def execute
-      parse_options
       load_test_environment
+      parse_options
       run
     end
     

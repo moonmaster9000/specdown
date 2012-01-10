@@ -16,8 +16,20 @@ module Specdown
           Specdown::Config.root = root
         end
 
-        opts.on '-h', '--help', 'Display this screen'  do
+        opts.on '-f', '--format plain|color', 'defaults to "color"' do |format|
+          case format
+            when 'plain' then Specdown::Config.reporter = :terminal
+            when 'color' then Specdown::Config.reporter = :color_terminal
+          end
+        end
+
+        opts.on_tail '-h', '--help', 'Display this screen'  do
           puts opts
+          exit
+        end
+
+        opts.on_tail "-v", "--version", "Show version" do
+          puts File.read(File.join(File.dirname(__FILE__), "../../../VERSION"))
           exit
         end
       end

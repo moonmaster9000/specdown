@@ -27,7 +27,8 @@ module Specdown
     end
 
     def format_stat(word, number)
-      "#{number} #{number == 1 ? word : word + "s"}"
+      plural_word = word[-2..-1] == "ss" ? "#{word}es" : "#{word}s"
+      "#{number} #{number == 1 ? word : plural_word}"
     end
   end
 end

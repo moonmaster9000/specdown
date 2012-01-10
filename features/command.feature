@@ -96,7 +96,6 @@ Feature: `specdown` command
      """
 
 
-  @focus
   Scenario: `specdown` command invoked with a directory
     Given I have a specdown directory 'specdown/tests' containing 3 markdown files, each with 1 passing test
     When I run `specdown specdown/tests`
@@ -108,3 +107,14 @@ Feature: `specdown` command
         3 tests
         0 failures
       """
+
+  
+  @focus
+  Scenario: -f terminal format switch
+    Given I am in a directory with a 'specdown' folder
+    When I run `specdown -f plain`
+    Then I should not see colorized output
+    When I run `specdown`
+    Then I should see colorized output
+    When I run `specdown -f color`
+    Then I should see colorized output
