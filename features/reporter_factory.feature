@@ -4,16 +4,18 @@ Feature: Specdown::ReporterFactory
 
   The `Specdown::ReporterFactory` has an API that allows you to configure new decorators for reports. Use the `Specdown::ReporterFactory.decorate` method:
 
-      Specdown::ReporterFactory.decorate do |report|
+      Specdown::ReporterFactory.decorate do |reporter|
         if Specdown::Config.reporter == :color_terminal
-          report.extend MyDecoratorModule
+          reporter.extend MyDecoratorModule
         end
+
+        reporter
       end
 
   For example, if you configure specdown to output colorized terminal output (the default value for Specdown::Config.reporter, :color_terminal), then `Specdown::ReporterFactory` will mix the `Specdown::AnsiColor` decorator into your `Specdown::Reporter` instance.
 
       Specdown::Config.reporter = :color_terminal
-      Specdown::ReporterFactory.generate.ancestors.should include(Specdown::AnsiColor)
+      Specdown::ReporterFactory.generate.should be_kind_of(Specdown::AnsiColor)
 
 
   Scenario: Adding a new decorator to Specdown::ReporterFactory
