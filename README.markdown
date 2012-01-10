@@ -261,6 +261,5 @@ Note that this defaults to `:color_terminal`. Also, please note that command lin
 
 This library is still very new, but we are rapidly adding features to it. Here's what is on the immediate horizon:
 
-* color code the terminal output
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
 * Better stack traces / reporting
