@@ -1,1 +1,1 @@
-Specdown::Config.reporter = :terminal
+Specdown::Config.reporter = Specdown::TerminalReporter

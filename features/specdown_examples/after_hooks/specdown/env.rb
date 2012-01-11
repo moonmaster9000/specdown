@@ -1,2 +1,2 @@
 Specdown::Config.expectations = :rspec
-Specdown::Config.reporter = :terminal
+Specdown::Config.reporter = Specdown::TerminalReporter

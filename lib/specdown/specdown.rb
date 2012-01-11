@@ -11,7 +11,7 @@ module Specdown
   end
 
   def reporter
-    @reporter ||= ReporterFactory.generate
+    @reporter ||= Config.reporter.new
   end
 
   def before(*filters, &callback)

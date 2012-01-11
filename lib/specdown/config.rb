@@ -8,7 +8,7 @@ module Specdown
     attr_accessor :reporter
 
     def reporter
-      @reporter ||= :color_terminal
+      @reporter ||= Specdown::ColorTerminalReporter
     end
     
     def reset!
