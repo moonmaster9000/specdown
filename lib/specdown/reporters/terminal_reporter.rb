@@ -1,5 +1,7 @@
 module Specdown
-  module TerminalReporter
+  class TerminalReporter
+    include Specdown::Reporter
+
     def success
       "."
     end
@@ -32,11 +34,4 @@ module Specdown
       "#{number} #{number == 1 ? word : plural_word}"
     end
   end
-end
-
-Specdown::ReporterFactory.decorate do |reporter|
-  if Specdown::Config.reporter == :terminal
-    reporter.extend Specdown::TerminalReporter
-  end
-  reporter
 end

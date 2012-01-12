@@ -18,8 +18,8 @@ module Specdown
 
         opts.on '-f', '--format plain|color', 'defaults to "color"' do |format|
           case format
-            when 'plain' then Specdown::Config.reporter = :terminal
-            when 'color' then Specdown::Config.reporter = :color_terminal
+            when 'plain' then Specdown::Config.reporter = Specdown::TerminalReporter
+            when 'color' then Specdown::Config.reporter = Specdown::ColorTerminalReporter
           end
         end
 

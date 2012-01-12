@@ -1,5 +1,5 @@
 module Specdown
-  class Reporter
+  module Reporter
     def summary(runners)
       ReportSummary.new(runners)
     end
