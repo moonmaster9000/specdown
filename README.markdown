@@ -239,23 +239,47 @@ You can use the `-r` flag to specify the root of the specdown directory (it defa
 $ specdown test.markdown -r specdown_environment/
 ```
 
-### Output Format
+### Colorization
 
-By default, `specdown` will output colorized terminal output. If you'd rather the output not be colorized, you can use the `-f plain` switch:
+By default, `specdown` will output colorized terminal output. If you'd rather the output not be colorized, you can use the `-n` or `--non-colorized` switch:
 
 ```sh
-$ specdown -f plain
+$ specdown -n
 ```
 
-The default format is `color`.
-
-You can also configure the report format in your Ruby code:
+You can also configure colorization in your env.rb by setting the
+reporter to `Specdown::TerminalReporter`:
 
 ```ruby
-Specdown::Config.reporter = :terminal
+Specdown::Config.reporter = Specdown::TerminalReporter
 ```
 
-Note that this defaults to `:color_terminal`. Also, please note that command line options take precedence.
+The reporter defaults to `Specdown::ColorTerminalReporter`.
+
+### Report format: short or condensed
+
+Currently, we offer two report formats: short, or condensed. Short
+offers only the most basic information, whereas `condensed` will provide
+you with summary details per file.
+
+You can toggle between the two either by setting switches at the command
+line:
+
+```sh
+$ specdown -f short
+$ specdown --format=short
+$ specdown -f condensed
+$ specdown --format=condensed
+```
+
+You can also configure this in your env.rb by setting
+`Specdown::Config.format` to either `:short` or `:condensed`:
+
+```ruby
+Specdown::Config.format = :condensed
+```
+
+The default it `short`.
 
 ## TODO
 

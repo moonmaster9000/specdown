@@ -1,50 +1,40 @@
 module Specdown
-  class TerminalReporter
+  class TextReporter
     include Specdown::Reporter
 
-    def success
-      "."
-    end
-
-    def failure
-      "F"
+    def initialize
+      @file = File.new "specdown_report.txt", "w"
     end
 
     def print_start
-    end
-
-    def print_end
+      @file.write Time.now.to_s
+      @file.write "\n\n"
     end
 
     def print_runner_start(runner)
-      print "#{runner.file_name}: "
-    end
-
-    def print_runner_summary(runner)
+      @file.write(runner.file_name + ": ")
     end
 
     def print_runner_end(runner)
-      print "\n"
+      @file.write "\n\n" 
     end
 
-    def print_test_start(test)
-    end
-    
-    def print_test_end(test)
-    end
-
-    def print_success(test)
-      print success
+    def print_success(test) 
+      @file.write "."
     end
 
     def print_failure(test)
-      print failure
+      @file.write "F"
+    end
+
+    def print_end
+      @file.close
     end
 
     def print_summary(runners)
       @report_summary = summary(runners)
       bounding = binding rescue proc {}
-      template.run bounding
+      @file.write template.result(bounding)
     end
     
     private
