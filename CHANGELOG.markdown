@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## 0.2.1
+
+Bug fix: -f command line option was broken completely. FACE RED :D
+
 ## 0.2.0
 
 New reporting and formating options at the command line. 

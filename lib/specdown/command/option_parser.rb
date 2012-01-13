@@ -36,7 +36,7 @@ module Specdown
           end
         end
 
-        opts.on '-f', '--format=short|condensed', [:short, :condensed], 'length and style of output. Defaults to "short".' do
+        opts.on '-f', '--format=short|condensed', [:short, :condensed], 'length and style of output. Defaults to "short".' do |format|
           Specdown::Config.format = format
         end
 
