@@ -4,11 +4,27 @@ module Specdown
       ReportSummary.new(runners)
     end
 
-    def success
+    def print_start
       raise NotImplementedError
     end
 
-    def failure
+    def print_runner_start(runner)
+      raise NotImplementedError
+    end
+
+    def print_runner_summary(runner)
+      raise NotImplementedError
+    end
+
+    def print_runner_end(runner)
+      raise NotImplementedError
+    end
+
+    def print_test_start(test)
+      raise NotImplementedError
+    end
+    
+    def print_test_end(test)
       raise NotImplementedError
     end
     
@@ -22,6 +38,16 @@ module Specdown
 
     def print_failure(test)
       raise NotImplementedError
+    end
+
+    def print_end
+      raise NotImplementedError
+    end
+
+    private
+    def format_stat(word, number)
+      plural_word = word[-2..-1] == "ss" ? "#{word}es" : "#{word}s"
+      "#{number} #{number == 1 ? word : plural_word}"
     end
   end
 end

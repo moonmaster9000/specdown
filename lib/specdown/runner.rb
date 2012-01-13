@@ -13,7 +13,7 @@ module Specdown
     end
 
     def run
-      EventServer.event :run_starting, self
+      EventServer.event :run_started, self
       depth_first_search @tree.root
       EventServer.event :run_complete, self
       self

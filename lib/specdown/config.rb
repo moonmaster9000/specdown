@@ -6,6 +6,11 @@ module Specdown
     attr_accessor :tests
     attr_accessor :root
     attr_accessor :reporter
+    attr_accessor :format
+
+    def format
+      @format ||= :short
+    end
 
     def reporter
       @reporter ||= Specdown::ColorTerminalReporter
@@ -15,6 +20,7 @@ module Specdown
       @expectations = nil
       @reporter     = nil
       @root         = nil
+      @format       = nil
     end
 
     def root

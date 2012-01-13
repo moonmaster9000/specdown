@@ -108,13 +108,33 @@ Feature: `specdown` command
         0 failures
       """
 
-  
+  Scenario: colorized output switches
+    * The following commands should yield colorized output:
+      * `specdown -c`
+      * `specdown --colorized`
+
+  Scenario: plain output (non-colorized) switches
+    * The following commands should yield non-colorized output:
+      * `specdown -n`
+      * `specdown --non-colorized`
+
+  Scenario: text output
+    * The following commands should output reports to a text file, 'specdown_report.txt':
+      * `specdown -o text`
+      * `specdown --output=text`
+
+  Scenario: terminal output
+    * The following commands should output reports to STDOUT:
+      * `specdown -o terminal`
+      * `specdown --output=terminal`
+
+  Scenario: short summary output
+    * The following commands should output only the most basic summary information to STDOUT:
+      * `specdown -f short`
+      * `specdown --format=short`
+
   @focus
-  Scenario: -f terminal format switch
-    Given I am in a directory with a 'specdown' folder
-    When I run `specdown -f plain`
-    Then I should not see colorized output
-    When I run `specdown`
-    Then I should see colorized output
-    When I run `specdown -f color`
-    Then I should see colorized output
+  Scenario: short summary output
+    * The following commands should output summary information for each file run to STDOUT:
+      * `specdown -f condensed`
+      * `specdown --format=condensed`

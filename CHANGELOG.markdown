@@ -1,5 +1,14 @@
 ## CHANGELOG
 
+## 0.2.0
+
+New reporting and formating options at the command line. 
+
+    -c, --colorized                  Colorize the terminal output
+    -n, --non-colorized              Display plain terminal output
+    -o, --output=text|terminal       output to either the terminal or a text file "specdown_report.txt". Defaults to "terminal".
+    -f, --format=short|condensed     length and style of output. Defaults to "short".
+
 ## 0.1.7
 
 Working on all Rubies.

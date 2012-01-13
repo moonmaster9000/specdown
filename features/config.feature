@@ -50,7 +50,7 @@ Feature: Specdown::Config
     * Specdown::Config.expectations #==> nil
     * Specdown::Config.reporter     #==> Specdown::ColorTerminalReporter
     * Specdown::Config.root         #==> "specdown"
-
+    * Specdown::Config.format       #==> :short
 
   Scenario: Reset the Specdown::Config
     Given I have configured Specdown:
@@ -58,6 +58,7 @@ Feature: Specdown::Config
         Specdown::Config.expectations = :rspec
         Specdown::Config.reporter     = Specdown::TerminalReporter
         Specdown::Config.root         = "dir/"
+        Specdown::Config.format       = :condensed
       """
 
     When I reset Specdown:
@@ -69,6 +70,9 @@ Feature: Specdown::Config
       * Specdown::Config.expectations #==> nil
       * Specdown::Config.reporter     #==> Specdown::ColorTerminalReporter
       * Specdown::Config.root         #==> "specdown"
+      * Specdown::Config.format       #==> :short
+
+
 
   Scenario: Default to Rspec expectations
 
