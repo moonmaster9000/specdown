@@ -247,7 +247,7 @@ By default, `specdown` will output colorized terminal output. If you'd rather th
 $ specdown -n
 ```
 
-You can also configure colorization in your env.rb by setting the
+You can also turn off colorization in your env.rb by setting the
 reporter to `Specdown::TerminalReporter`:
 
 ```ruby
