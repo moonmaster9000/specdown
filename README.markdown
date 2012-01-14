@@ -16,7 +16,7 @@ This library is very new. It has only a few features, but it's growing rapidly. 
 
 ## Installation
 
-Right now, specdown only support's Ruby. Next, I'll write a javascript implementation. Then, I don't know what language. Regardless, the goal is that you could use specdown with any programming language you desire.
+Right now, specdown only supports Ruby. Next, I'll write a javascript implementation. Then, I don't know what language. Regardless, the goal is that you could use specdown with any programming language you desire.
 
 To install the `specdown` ruby gem, simply:
 
@@ -228,7 +228,7 @@ If you want to run just a single file or a set of files, or a directory of files
 
 ```sh
 $ specdown specdown/test.markdown
-$ specdown specdown/unit_tests
+$ specdown specdown/unit_tests specdown/simple.markdown specdown/integration_tests/
 ```
 
 ### Overriding the default root directory
@@ -286,4 +286,6 @@ The default it `short`.
 This library is still very new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
 
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
+* support github-flavored markdown code blocks
+* allow arbitrary text in the markdown to execute code
 * Better stack traces / reporting
