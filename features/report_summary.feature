@@ -12,7 +12,7 @@ Feature: Specdown::ReportSummary
   
   Scenario: A Specdown::Reporter instantiated with a single stats object
 
-    Given the following specdown example file located at 'features/fixtures/parser_example.markdown':
+    Given the following specdown example file:
       """
       # Specdown Example
 
