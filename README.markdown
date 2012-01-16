@@ -168,12 +168,17 @@ raise "name in scope" if defined? name
 
 ## Non-executing code blocks
 
-It's likely that in the process of writing your documentation tests, you'll want
-to add some code into your markdown that you don't want executed.
+As of version 0.3.0, you must use explicitly mark any codeblocks you
+want specdown to execute with github-flavored fenced codeblocks. This
+change is not backwards-compatible with previous versions; you'll need
+to update your tests if you want to upgrade to this version.
+
+I made this change because it's likely that in the process of writing your 
+specdown, you'll want to add some code into your markdown that you don't want executed.
 Perhaps it's code in a different language, or perhaps you're showing off
 some command line functionality.
 
-Specdown only executes fenced codeblocks specifically flagged as `ruby`.
+Specdown only executes github-flavored fenced codeblocks specifically flagged as `ruby`.
 Thus, if you want to add some code to your markdown that shouldn't be
 executed, then just don't specifically flag it as Ruby:
 
