@@ -344,7 +344,7 @@ You can also configure this in your env.rb by setting
 Specdown::Config.format = :condensed
 ```
 
-The default it `short`.
+The default is `:short`.
 
 ## TODO
 
