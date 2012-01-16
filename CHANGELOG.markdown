@@ -1,5 +1,36 @@
 ## CHANGELOG
 
+## 0.3.0
+
+NOTICE: Non-backwards compatible release.
+
+specdown now supports github-flavored fenced codeblocks!
+
+If you want your codeblock executed in your tests, you must explicitly
+mark it as a `ruby` codeblock:
+
+    # Example Markdown
+    
+    Specdown will execute the following codeblock:
+    
+    ```ruby
+    I execute
+    ```
+    
+    Specdown will ignore the following codeblocks:
+    
+    ```javascript
+    console.log("hi");
+    ```
+
+        indented code block
+
+    ```
+    this code block is fenced, but not explicitly 
+    tagged as ruby. therefore, specdown will not execute
+    it.
+    ```
+
 ## 0.2.1
 
 Bug fix: -f command line option was broken completely. FACE RED :D

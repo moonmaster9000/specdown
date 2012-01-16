@@ -3,7 +3,7 @@ module Specdown
     extend self
 
     def parse(readme)
-      kramdown = Kramdown::Document.new readme, :input => :markdown
+      kramdown = Kramdown::Document.new readme, :input => "GithubMarkdown"
       build_tree kramdown.root.children
     end
 
@@ -43,7 +43,7 @@ module Specdown
 
       while !parsed_elements.empty? && parsed_elements.first.type != :header
         element        = parsed_elements.shift
-        node.code     += element.value if element.type == :codeblock
+        node.code     += element.value if element.type == :codeblock && element.options["language"] == "ruby"
         node.contents += element.value.to_s + element.children.map(&:value).join
       end
       node
