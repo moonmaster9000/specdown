@@ -18,27 +18,33 @@ Feature: `specdown` command
     
     Given I have a specdown directory containing a single markdown file:
       """
-        # Specdown Example
+      # Specdown Example
 
-        This is an example specdown file.
+      This is an example specdown file.
 
-        ## Child Node
+      ## Child Node
 
-        This section is a child node. It contains some ruby code: 
-            
-            "simple code".should_not be(nil)
+      This section is a child node. It contains some ruby code: 
+          
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
 
-        ### First Leaf
+      ### First Leaf
 
-        This section has a failure simulation:
-            
-            raise "specdown error simulation!"
+      This section has a failure simulation:
+          
+      ```ruby
+      raise "specdown error simulation!"
+      ```
 
-        ## Last Leaf
+      ## Last Leaf
 
-        This section is a leaf node. It contains some ruby code:
-            
-            1.should satisfy(&:odd?)
+      This section is a leaf node. It contains some ruby code:
+
+      ```ruby
+      1.should satisfy(&:odd?)
+      ```
       """
 
     When I run `specdown` with no arguments
@@ -56,27 +62,33 @@ Feature: `specdown` command
   Scenario: `specdown` with no arguments, and a specdown directory containing a single ruby file and a single markdown file
     Given I have a specdown directory containing a markdown file:
       """
-        # Specdown Example
+      # Specdown Example
 
-        This is an example specdown file.
+      This is an example specdown file.
 
-        ## Child Node
+      ## Child Node
 
-        This section is a child node. It contains some ruby code: 
-            
-            "simple code".should_not be(nil)
+      This section is a child node. It contains some ruby code: 
+          
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
 
-        ### First Leaf
+      ### First Leaf
 
-        This section has a failure simulation:
-            
-            raise "specdown error simulation!"
+      This section has a failure simulation:
+          
+      ```ruby
+      raise "specdown error simulation!"
+      ```
 
-        ## Last Leaf
+      ## Last Leaf
 
-        This section is a leaf node. It contains some ruby code:
-            
-            1.should satisfy(&:odd?)
+      This section is a leaf node. It contains some ruby code:
+
+      ```ruby
+      1.should satisfy(&:odd?)
+      ```
       """
     And a single ruby file:
       """

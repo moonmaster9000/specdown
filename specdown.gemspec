@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files  = Dir["*.markdown"]
   s.executables << "specdown"
 
-  s.add_dependency "kramdown", "~> 0.13.4"
+  s.add_dependency "gitdown", "~> 0.0.2"
   s.add_dependency "term-ansicolor", "~> 1.0.7"
   
   s.add_development_dependency "cucumber"

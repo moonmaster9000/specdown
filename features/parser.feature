@@ -14,20 +14,26 @@ Feature: Specdown Parser
 
         This section is a child node. It contains some ruby code: 
             
-            "simple code".should_not be(nil)
+        ```ruby
+        "simple code".should_not be(nil)
+        ```
 
         \### First Leaf
 
         This section has a failure simulation:
             
-            raise "specdown error simulation!"
+        ```ruby
+        raise "specdown error simulation!"
+        ```
 
         \## Last Leaf
 
         This section is a leaf node. It contains some ruby code:
-            
-            1.should satisfy(&:odd?)
-       README
+        
+        ```ruby
+        1.should satisfy(&:odd?)
+        ```
+      README
 
   As you can see, this forms a tree, with "# Specdown Example" at the root of the tree, and "## Leaf 1" and "## Leaf 2" as the children / leafs. 
 
@@ -55,27 +61,33 @@ Feature: Specdown Parser
 
     Given the following specdown example file:
       """
-        # Specdown Example
+      # Specdown Example
 
-        This is an example specdown file.
+      This is an example specdown file.
 
-        ## Child Node
+      ## Child Node
 
-        This section is a child node. It contains some ruby code: 
-            
-            "simple code".should_not be(nil)
+      This section is a child node. It contains some ruby code: 
+          
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
 
-        ### First Leaf
+      ### First Leaf
 
-        This section has a failure simulation:
-            
-            raise "specdown error simulation!"
+      This section has a failure simulation:
+          
+      ```ruby
+      raise "specdown error simulation!"
+      ```
 
-        ## Last Leaf
+      ## Last Leaf
 
-        This section is a leaf node. It contains some ruby code:
-            
-            1.should satisfy(&:odd?)
+      This section is a leaf node. It contains some ruby code:
+      
+      ```ruby
+      1.should satisfy(&:odd?)
+      ```
       """
 
     When I parse it into a tree:
@@ -105,4 +117,55 @@ Feature: Specdown Parser
         
         last_leaf.name.should   == "Last Leaf"
         last_leaf.code.should   == "1.should satisfy(&:odd?)" 
+      """
+
+
+  Scenario: Parsing a specdown file
+
+    Given the following specdown example file containing non-executing codeblocks:
+      """
+      # Specdown Example
+
+      This is an example specdown file.
+
+      ## Executing Code blocks
+
+      This section contains an executing code block: 
+          
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
+
+      It also contains a non-executing code block:
+
+          raise "I should not execute!"
+
+      ## More non executing code blocks
+
+      This section has two non-executing code blocks:
+
+      ```javascript
+      console.log("I won't execute!");
+      ```
+
+      and...
+
+      ```
+      $ cd /
+      ```
+      """
+
+    When I parse it into a tree:
+      """
+        @tree = Specdown::Parser.parse @readme
+      """
+
+    Then the first leaf should contain only the explicit ruby code:
+      """
+        @tree.root.children.first.code.should == '"simple code".should_not be(nil)'
+      """
+
+    And the second leaf should not contain any executable code:
+      """
+        @tree.root.children.last.code.should be_empty
       """
