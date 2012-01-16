@@ -350,7 +350,6 @@ The default it `short`.
 
 This library is still very new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
 
+* allow flagged text in the markdown to execute code, like a cucumber step definition
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
-* support github-flavored markdown code blocks
-* allow arbitrary text in the markdown to execute code
 * Better stack traces / reporting
