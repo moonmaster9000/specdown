@@ -6,13 +6,34 @@ Write your README in markdown, and execute it with specdown.
 
 ## Why?
 
-Simply put, `specdown` takes README DRIVEN DEVELOPMENT one step further by making your markdown executable.
+When you write a README for a library, a class, a command, etc., you're
+forced to stop and consider your user:
 
-If you don't know what README DRIVEN DEVELOPMENT IS, checkout Tom Preston Werner's blog post ["README Driven Development"](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
+* how are they going to use it?
+* what's the API
+* how am I going to convince them to use my library?
 
-## CAVEAT
+What if you write the README first, before writing your code? This is the
+premise of README Driven Development. See Tom Preston-Werner's [blog post](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
+on the topic for a quick introduction to all of its benefits.
 
-This library is very new. It has only a few features, but it's growing rapidly. Follow this repo to stay up to date on the latest changes, or better yet, fork and implement some needed features (see the TODO list at the end of this README).
+### Duplication
+
+One pain point I've encountered with README Driven Development is
+duplication between my tests and my documentation. Quite often, I'll end up
+spending a good deal of time translating most of my README's into executable tests in Cucumber or
+RSpec. Not only does this lower my productivity, it also forces me to
+maintain information about my code in two places: the documentation, and
+the tests. 
+
+Wouldn't it be great if your documentation and your tests were one and
+the same? For me, this was the promise of Cucumber, a tool I still use
+and love. However, I find that the repetitive nature of Gherkin, along
+with the hidden nature of the step definitions, mitigates against the
+likelihood that my feature files will actually serve as the primary
+documentation for my project. Readers will tune out when asked to read a page full of
+repetitive "Given/When/Then" scenarios, or they'll be forced to look elsewhere for the
+information they need because the step definitions hide the API.
 
 ## Installation
 
@@ -26,15 +47,15 @@ It comes with a `specdown` command. Try running it. Doesn't matter where.
 
 ## Usage
 
-Let's write a simple test in markdown, and execute it with specdown. Create a "specdown" directory, then save the following text into a file inside of it. I'll assume you're calling it "example.markdown":
+Let's write a simple test in ([github-flavored](http://github.github.com/github-flavored-markdown/)) markdown, and execute it with specdown. Create a "specdown" directory, then save the following text into a file inside of it. I'll assume you're calling it "example.markdown":
 
-```markdown
-# Our first test!
+    # Our first test!
 
-This is our very first test. It's going to blow your mind.
+    This is our very first test. It's going to blow your mind.
 
+    ```ruby
     raise "WTF?" unless 1 == 1
-```
+    ```
 
 Ok, if you've been following along, then `ls -R` should return the following directory structure:
 
@@ -54,6 +75,7 @@ Great. Now run the `specdown` command:
 
         1 markdown
         1 test
+        1 success
         0 failures
 ```
 
@@ -65,31 +87,37 @@ Booya!
 
 Let's update our README to help illustrate this:
 
-```markdown
-# Our first test!
+    # Our first test!
 
-This is our very first test. It's going to blow your mind.
-
+    This is our very first test. It's going to blow your mind.
+    
+    ```ruby
     raise "WTF?" unless 1 == 1
+    ```
 
-## A Subsection
+    ## A Subsection
 
-In this section, we're going to create a variable.
+    In this section, we're going to create a variable.
 
+    ```ruby
     name = "moonmaster9000"
+    ```
 
-### A sub subsection
+    ### A sub subsection
 
-In this subsection, we have access to anything created or within scope in parent sections:
+    In this subsection, we have access to anything created or within scope in parent sections:
 
+    ```ruby
     raise "name not in scope" if !defined? name
+    ```
 
-## Another Subsection
+    ## Another Subsection
 
-In this subsection, we don't have access to the "name" variable. Think of your markdown as a tree.
-
+    In this subsection, we don't have access to the "name" variable. Think of your markdown as a tree.
+    
+    ```ruby
     raise "name in scope" if defined? name
-```
+    ```
 
 Read through that. I'm giving you some important scoping hints in it. 
 
@@ -138,9 +166,46 @@ raise "WTF?" unless 1 == 1
 raise "name in scope" if defined? name
 ```
 
+## Non-executing code blocks
+
+It's likely that in the process of writing your documentation tests, you'll want
+to add some code into your markdown that you don't want executed.
+Perhaps it's code in a different language, or perhaps you're showing off
+some command line functionality.
+
+Specdown only executes fenced codeblocks specifically flagged as `ruby`.
+Thus, if you want to add some code to your markdown that shouldn't be
+executed, then just don't specifically flag it as Ruby:
+
+    # Non-Executing Code Blocks Example
+    
+    Here's an example of a non-executing code block:
+    
+        $ cd /
+    
+    Here's another example of a non-executing code block:
+        
+    ```javascript
+    console.log("I'm javascript, so I won't execute.");
+    ```
+
+    A third example:
+    
+    ```
+    I'm not flagged as anything, so I won't execute.
+    ```
+
+    ## Executing codeblocks
+    
+    The only way to make a code block execute is to specifically flag it as Ruby
+    
+    ```ruby
+    puts "I execute!"
+    ```
+
 ## Setting up your test environment
 
-Similar to the cucumber testing framework: If you put a ruby file somewhere inside your "specdown" directory, `specdown` will find it and load it.
+Similar to the cucumber testing framework: if you put a ruby file somewhere inside your "specdown" directory, `specdown` will find it and load it.
 
 ### Configuring the Expectation / Assertion framework
 
@@ -279,13 +344,12 @@ You can also configure this in your env.rb by setting
 Specdown::Config.format = :condensed
 ```
 
-The default it `short`.
+The default is `:short`.
 
 ## TODO
 
 This library is still very new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
 
+* allow flagged text in the markdown to execute code, like a cucumber step definition
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
-* support github-flavored markdown code blocks
-* allow arbitrary text in the markdown to execute code
 * Better stack traces / reporting

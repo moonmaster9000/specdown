@@ -12,19 +12,25 @@ Feature: Runner
 
       This section is a child node. It contains some ruby code: 
           
-          "simple code".should_not == nil
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
 
       \### First Leaf
 
       This section has a failure simulation:
           
-          raise "specdown error simulation!"
+      ```ruby
+      raise "specdown error simulation!"
+      ```
 
       \## Last Leaf
 
       This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+
+      ```ruby
+      1.should satisfy(&:odd?)
+      ```
   
   We can generate a `Specdown::Runner` instance and run the tests in our markdown by simply passing the filename on instantiation:
 
@@ -42,7 +48,7 @@ Feature: Runner
 
   Scenario: Running tests
 
-    Given the following specdown example file located at 'features/fixtures/parser_example.markdown':
+    Given the following specdown example file:
       """
       # Specdown Example
 
@@ -52,19 +58,25 @@ Feature: Runner
 
       This section is a child node. It contains some ruby code: 
           
-          "simple code".should_not == nil
+      ```ruby
+      "simple code".should_not be(nil)
+      ```
 
       ### First Leaf
 
       This section has a failure simulation:
           
-          raise "specdown error simulation!"
+      ```ruby
+      raise "specdown error simulation!"
+      ```
 
       ## Last Leaf
 
       This section is a leaf node. It contains some ruby code:
-          
-          1.should == 1
+
+      ```ruby
+      1.should satisfy(&:odd?)
+      ```
       """
 
     When I generate a `Specdown::Runner` instance from it:
