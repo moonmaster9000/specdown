@@ -166,10 +166,10 @@ raise "WTF?" unless 1 == 1
 raise "name in scope" if defined? name
 ```
 
-## Non-executing code blocks
+## Non-executable code blocks
 
-As of version 0.3.0, you must use explicitly mark any codeblocks you
-want specdown to execute with github-flavored fenced codeblocks. This
+As of version `0.3.0`, you must surround any codeblocks you
+want specdown to execute with a github-flavored backtick fence. This
 change is not backwards-compatible with previous versions; you'll need
 to update your tests if you want to upgrade to this version.
 
@@ -178,11 +178,11 @@ specdown, you'll want to add some code into your markdown that you don't want ex
 Perhaps it's code in a different language, or perhaps you're showing off
 some command line functionality.
 
-Specdown only executes github-flavored fenced codeblocks specifically flagged as `ruby`.
+Specdown only executes fenced codeblocks specifically flagged as `ruby`.
 Thus, if you want to add some code to your markdown that shouldn't be
 executed, then just don't specifically flag it as Ruby:
 
-    # Non-Executing Code Blocks Example
+    # Non-Executable Code Blocks
     
     Here's an example of a non-executing code block:
     
@@ -200,7 +200,7 @@ executed, then just don't specifically flag it as Ruby:
     I'm not flagged as anything, so I won't execute.
     ```
 
-    ## Executing codeblocks
+    ## Executable codeblocks
     
     The only way to make a code block execute is to specifically flag it as Ruby
     
@@ -353,8 +353,12 @@ The default is `:short`.
 
 ## TODO
 
-This library is still very new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
+This library is quite new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
 
 * allow flagged text in the markdown to execute code, like a cucumber step definition
 * offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
 * Better stack traces / reporting
+
+## LICENSE
+
+This software is [public domain](http://en.wikipedia.org/wiki/Public_domain). GO WILD
