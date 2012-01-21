@@ -92,8 +92,10 @@ Feature: Specdown::ImplicitParser
         @implicits_2 = <<-SPECDOWN.undent
           b
           --------------
-          
-              b code
+
+          ```ruby
+          b code
+          ```
         SPECDOWN
       """
     
