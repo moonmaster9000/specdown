@@ -248,7 +248,7 @@ $ specdown
 
         * The article should now be deleted from the database.
             
-            pending # replace this with the code you want
+                pending # replace this with the code you want
 ```
 
 If we do as it says and rerun the `specdown` command, we'll receive a
@@ -259,8 +259,13 @@ expectations):
 ```markdown
 * The article should now be deleted from the database.
 
-    Article.all.should be_empty
+        Article.all.should be_empty
 ```
+
+The ".specdown" file is simply a markdown file with a different
+extension. It should consist of an unordered list of spec / definition pairs.
+
+Note that, according to the [markdown specification](http://daringfireball.net/projects/markdown/syntax#list), codeblocks within list items must be indented twice (two tabs or 8 spaces).
 
 ## Setting up your test environment
 
