@@ -3,8 +3,9 @@
 ---------------------------------------------------------------------------
 <%= Term::ANSIColor.bold format_stat("markdown", @report_summary.num_markdowns)   %>
 <%= Term::ANSIColor.bold format_stat("test",     @report_summary.num_tests)       %>
-<%= Term::ANSIColor.green format_stat("success",  @report_summary.num_successes)  %>
-<%= Term::ANSIColor.red format_stat("failure",  @report_summary.num_failures)     %>
+<%= Term::ANSIColor.blue format_stat("pending",  @report_summary.num_pendings)    %>
+<%= Term::ANSIColor.green format_stat("success", @report_summary.num_successes)   %>
+<%= Term::ANSIColor.red format_stat("failure",   @report_summary.num_failures)    %>
 ---------------------------------------------------------------------------
 
 <% runners.map(&:stats).each do |stat| %>

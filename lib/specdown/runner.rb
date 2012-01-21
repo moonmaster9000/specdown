@@ -39,12 +39,14 @@ module Specdown
         Specdown.sandbox.instance_eval <<-CODE, file_name
           #{code.join("\n")}
         CODE
-
         EventServer.event :test_passed, self
+
+      rescue Specdown::PendingException => e
+        @stats.pending_exceptions << ExceptionFacade.new(e, self)
+        EventServer.event :test_pending, self
 
       rescue Exception => e
         @stats.exceptions << ExceptionFacade.new(e, self)
-
         EventServer.event :test_failed, self
       end
     end

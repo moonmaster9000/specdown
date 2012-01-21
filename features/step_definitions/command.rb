@@ -3,9 +3,7 @@ When /^I run `specdown` from the command line in a directory that contains no 's
 end
 
 Then /^I should see the following output:$/ do |string|
-  string.split("\n").each do |line|
-    @output.should include(line.strip)
-  end
+  ensure_included string, @output
 end
 
 Given /^I have a specdown directory containing a (?:single )?markdown file:$/ do |string|
@@ -104,6 +102,12 @@ end
 
 Given /^`specdown \-\-format=condensed`$/ do
   ensure_condensed! bundle_exec!("specdown --format=condensed")
+end
+
+def ensure_included!(desired, actual)
+  desired.split("\n").each do |line|
+    actual.should include(line.strip)
+  end
 end
 
 def ensure_condensed!(output)

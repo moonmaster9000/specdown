@@ -3,6 +3,7 @@
 ---------------------------------------------------------------------------
 <%= format_stat("markdown", @report_summary.num_markdowns)    %>
 <%= format_stat("test",     @report_summary.num_tests)        %>
+<%= format_stat("pending",  @report_summary.num_pendings)     %>
 <%= format_stat("success",  @report_summary.num_successes)    %>
 <%= format_stat("failure",  @report_summary.num_failures)     %>
 ---------------------------------------------------------------------------

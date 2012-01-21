@@ -10,6 +10,10 @@ module Specdown
       "F"
     end
 
+    def pending
+      "P"
+    end
+
     def print_start
     end
 
@@ -35,6 +39,10 @@ module Specdown
 
     def print_success(test)
       print success
+    end
+
+    def print_pending(test)
+      print pending
     end
 
     def print_failure(test)
