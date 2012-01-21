@@ -36,9 +36,10 @@ Feature: Implicit Specs
 
       Now add the following implicit spec definition to a file suffixed with ".specdown":
 
-          * The article should now be deleted from the database.
+      The article should now be deleted from the database.
+      ------------------------------------------------------
               
-                  pending # replace this with the code you want
+          pending # replace this with the code you want
   ```
 
   If we do as it says and rerun the `specdown` command, we'll receive a
@@ -47,9 +48,10 @@ Feature: Implicit Specs
   expectations):
 
   ```markdown
-  * The article should now be deleted from the database.
+  The article should now be deleted from the database.
+  --------------------------------------------------------
 
-          Article.all.should be_empty
+      Article.all.should be_empty
   ```
 
   The ".specdown" file is simply a markdown file with a different
@@ -72,9 +74,10 @@ Feature: Implicit Specs
       """
         Now add the following implicit spec definition to a file suffixed with ".specdown":
 
-        * The article should now be deleted from the database.
+        The article should now be deleted from the database.
+        ------------------------------------------------------
             
-                pending # replace this with the code you want
+            pending # replace this with the code you want
       """
   
   Scenario: Pending implicit specification
@@ -87,9 +90,10 @@ Feature: Implicit Specs
 
     And a specdown file with a pending specification:
       """
-      * An implicit spec.
+      An implicit spec.
+      ---------------------
 
-              pending
+          pending
       """
 
     When I run the `specdown` command
@@ -108,9 +112,10 @@ Feature: Implicit Specs
     
     And a specdown file with a complete specification:
       """
-        * An implicit spec.
+        An implicit spec.
+        ----------------------
 
-                raise "oops!" unless 1 == 1
+            raise "oops!" unless 1 == 1
       """
 
     When I run the `specdown` command
