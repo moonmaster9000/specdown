@@ -223,33 +223,36 @@ model:
     
     Imagine we create the following article:
         
-        article = Article.create :title => "Specdown"
+    ```ruby
+    article = Article.create :title => "Specdown"
+    ```
 
     We can delete the article by simply using the `delete!` method:
-
-        article.delete!
+    
+    ```ruby
+    article.delete!
+    ```
 
     **The article should now be deleted from the database.**
 
 Notice the emphasis around the last sentence. If we execute this with
 `specdown`, we'll recieve the following result:
 
-```sh
-$ specdown
+    $ specdown
 
-    1 markdown
-    1 test
-    0 passing
-    0 failing
-    1 undefined
+        1 markdown
+        1 test
+        0 passing
+        0 failing
+        1 undefined
 
 
-    Now add the following implicit spec definition to a file suffixed with ".specdown":
+        Now add the following implicit spec definition to a file suffixed with ".specdown":
 
-        * The article should now be deleted from the database.
+        The article should now be deleted from the database.
+        ----------------------------------------------------        
             
-                pending # replace this with the code you want
-```
+            pending # replace this with the code you want
 
 If we do as it says and rerun the `specdown` command, we'll receive a
 notice that we now have a pending implicit spec. Thus, we could
@@ -257,15 +260,20 @@ implement the pending spec like so (assuming we were using RSpec
 expectations):
 
 ```markdown
-* The article should now be deleted from the database.
+The article should now be deleted from the database.
+----------------------------------------------------        
 
-        Article.all.should be_empty
+    Article.all.should be_empty
 ```
 
 The ".specdown" file is simply a markdown file with a different
 extension. It should consist of an unordered list of spec / definition pairs.
 
-Note that, according to the [markdown specification](http://daringfireball.net/projects/markdown/syntax#list), codeblocks within list items must be indented twice (two tabs or 8 spaces).
+Note that we didn't surround our code with a github-flavored backtick
+fence. Since ".specdown" files are solely used for defining implicit
+specifications, it's assumed that all code blocks (unless they're
+spefically marked as something other than ruby) will be executed.
+
 
 ## Setting up your test environment
 
