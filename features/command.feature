@@ -113,7 +113,9 @@ Feature: `specdown` command
     When I run `specdown specdown/tests`
     Then I should see the following output:
       """
-        ...
+        1.markdown: .
+        2.markdown: .
+        3.markdown: .
 
         3 markdowns
         3 tests
