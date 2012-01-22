@@ -171,7 +171,6 @@ Feature: Specdown Parser
       """
 
 
-  @focus
   Scenario: Multiple code blocks in a section should join together with newlines
 
     Given the following specdown example file containing multiple executable codeblocks in a single section:
@@ -197,4 +196,73 @@ Feature: Specdown Parser
     Then the code blocks should be joined together with newlines:
       """
         @tree.root.code.should == "hi = 'hello'\nputs hi"
+      """
+
+  @focus
+  Scenario: Code blocks + Undefined Implicit Specs
+
+    Given the following README:
+      """
+      @readme = <<-README.undent
+        # Specdown Example
+
+        **This is an implicit spec.**
+
+        This text has two implicit specs: **one** and **two**.
+
+        ```ruby
+        hi = "explicit spec"
+        ```
+      README
+      """
+
+    When I parse it into a tree:
+      """
+        @tree = Specdown::Parser.parse @readme
+      """
+
+    Then the root node should include the explicit code:
+      """
+        @tree.root.code.should == %{hi = "explicit spec"}
+      """ 
+      
+    And the root node should include the undefined implicit specs:
+      """
+        @tree.root.undefined_implicits.should == ["This is an implicit spec.", "one", "two"]
+      """
+
+  @focus
+  Scenario: Code blocks + Defined Implicit Specs
+
+    Given the following README:
+      """
+      @readme = <<-README.undent
+        # Specdown Example
+
+        **This is an implicit spec.**
+
+        ```ruby
+        hi = "explicit spec"
+        ```
+      README
+      """
+
+    And the following implicit specs:
+      """
+        @implicits = <<-SPECDOWN.undent
+          This is an implicit spec.
+          -----------------------------
+
+              puts "howdy"
+        SPECDOWN
+      """
+
+    When I parse it into a tree:
+      """
+        @tree = Specdown::Parser.parse @readme, Specdown::ImplicitParser.parse(@implicits)
+      """
+
+    Then the code block and the implicit spec should be joined together:
+      """
+        @tree.root.code.should == %{puts "howdy"\nhi = "explicit spec"}
       """

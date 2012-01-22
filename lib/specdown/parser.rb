@@ -1,15 +1,22 @@
 module Specdown
-  module Parser
-    extend self
+  class Parser
+    def self.parse(readme, lookups={})
+      self.new(readme, lookups).parse
+    end
 
-    def parse(readme)
-      kramdown = Kramdown::Document.new readme, :input => "GithubMarkdown"
+    def initialize(readme, lookups={})
+      @readme   = readme
+      @lookups  = lookups
+    end
+
+    def parse
+      kramdown = Kramdown::Document.new @readme, :input => "GithubMarkdown"
       build_tree kramdown.root.children
     end
 
     private
     def build_tree(parsed_elements)
-      tree = Tree.new
+      tree = Specdown::Tree.new
       scan_for_root_node parsed_elements
       tree.root = consume_section parsed_elements unless parsed_elements.empty?
       consume_children parsed_elements, tree.root unless parsed_elements.empty?
@@ -43,7 +50,22 @@ module Specdown
 
       while !parsed_elements.empty? && parsed_elements.first.type != :header
         element        = parsed_elements.shift
-        node.code     += "\n" + element.value.to_s.strip if element.type == :codeblock && element.options["language"] == "ruby"
+
+        if element.type == :codeblock && element.options["language"] == "ruby"
+          node.code += "\n" + element.value.to_s.strip 
+
+        elsif has_implicits?(element)
+          gather_implicit_keys(element).each do |key|
+            value = @lookups[key]
+
+            if value
+              node.code += "\n" + value
+            else
+              node.undefined_implicits << key
+            end
+          end
+        end
+
         node.contents += element.value.to_s + element.children.map(&:value).join
       end
       node
@@ -54,6 +76,18 @@ module Specdown
         parsed_elements.first.type == :header && parsed_elements.first.options[:level] == 1
       )
         parsed_elements.shift
+      end
+    end
+
+    def has_implicits?(element)
+      element.type == :strong || element.children.map {|child| has_implicits?(child) }.any?
+    end
+
+    def gather_implicit_keys(element)
+      if element.type == :strong
+        [element.children.map(&:value).compact.join(" ")]
+      else
+        element.children.map {|child| gather_implicit_keys(child)}.flatten
       end
     end
   end
