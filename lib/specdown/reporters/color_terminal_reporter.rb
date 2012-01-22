@@ -12,6 +12,10 @@ module Specdown
       Term::ANSIColor.blue super
     end
 
+    def undefined
+      Term::ANSIColor.yellow super
+    end
+
     private
     def template
       ERB.new File.read(File.join(File.dirname(__FILE__), "../templates/color_summary.erb"))

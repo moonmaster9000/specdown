@@ -18,6 +18,10 @@ module Specdown
       @num_pendings ||= @runners.map(&:stats).map(&:pendings).inject(0, &:+)
     end
 
+    def num_undefined
+      @num_undefined ||= @runners.map(&:stats).map(&:undefined).inject(0, &:+)
+    end
+
     def num_failures
       @num_failures ||= @runners.map(&:stats).map(&:failures).inject(0, &:+)
     end

@@ -44,6 +44,10 @@ module Specdown
       raise NotImplementedError
     end
 
+    def print_undefined(test)
+      raise NotImplementedError
+    end
+
     def print_end
       raise NotImplementedError
     end

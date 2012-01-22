@@ -14,6 +14,10 @@ module Specdown
       "P"
     end
 
+    def undefined
+      "U"
+    end
+
     def print_start
     end
 
@@ -47,6 +51,10 @@ module Specdown
 
     def print_failure(test)
       print failure
+    end
+
+    def print_undefined(test)
+      print undefined
     end
 
     def print_summary(runners)

@@ -35,6 +35,12 @@ module Specdown
       @tests ||= find_tests_in root
     end
 
+    def implicit_specs
+      return @implicit_specs if @implicit_specs
+      implicit_spec_files = find_implicit_specs_in(root).map {|file| File.read(file)}
+      @implicit_specs = Specdown::ImplicitParser.parse *implicit_spec_files
+    end
+
     def tests=(test_files)
       unless test_files.empty?
         @tests = test_files
@@ -64,6 +70,11 @@ module Specdown
     def find_tests_in(directory)
       directory = strip_trailing_slash directory
       Dir["#{directory}/**/*.markdown"] + Dir["#{directory}/**/*.md"]
+    end
+
+    def find_implicit_specs_in(directory)
+      directory = strip_trailing_slash directory
+      Dir["#{directory}/**/*.specdown"]
     end
 
     def strip_trailing_slash(string)

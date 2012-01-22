@@ -12,12 +12,16 @@ Feature: Implicit Specs
       \# Deleting an article from the database
       
       Imagine we create the following article:
-          
-          article = Article.create :title => "Specdown"
+
+      ```ruby
+      article = Article.create :title => "Specdown"
+      ```
 
       We can delete the article by simply using the `delete!` method:
-
-          article.delete!
+      
+      ```ruby
+      article.delete!
+      ```
 
       **The article should now be deleted from the database.**
 
@@ -33,7 +37,7 @@ Feature: Implicit Specs
       0 failing
       1 undefined
 
-
+      
       Now add the following implicit spec definition to a file suffixed with ".specdown":
 
       The article should now be deleted from the database.
@@ -66,18 +70,20 @@ Feature: Implicit Specs
       """
         # Heading
 
-        ** An implicit spec. **
+        **An implicit spec.**
       """
     But no implicit specification
     When I run the `specdown` command
     Then I should see the following output:
       """
+        1 undefined
+
         Now add the following implicit spec definition to a file suffixed with ".specdown":
 
-        The article should now be deleted from the database.
+        An implicit spec.
         ------------------------------------------------------
             
-            pending # replace this with the code you want
+            pending # replace this with the code you wish you had
       """
   
   Scenario: Pending implicit specification
@@ -85,7 +91,7 @@ Feature: Implicit Specs
       """
         # Heading
 
-        ** An implicit spec. **
+        **An implicit spec.**
       """
 
     And a specdown file with a pending specification:
@@ -107,7 +113,7 @@ Feature: Implicit Specs
       """
         # Heading
 
-        ** An implicit spec. **
+        **An implicit spec.**
       """
     
     And a specdown file with a complete specification:

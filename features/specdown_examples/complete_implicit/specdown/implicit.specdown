@@ -1,3 +1,4 @@
-* An implicit spec.
+An implicit spec.
+--------------------------
 
-        raise "oops!" unless 1 == 1 
+    raise "oops!" unless 1 == 1 

@@ -27,6 +27,14 @@ module Specdown
       @file.write "F"
     end
 
+    def print_pending(test)
+      @file.write "P"
+    end
+
+    def print_undefined(test)
+      @file.write "U"
+    end
+
     def print_end
       @file.close
     end

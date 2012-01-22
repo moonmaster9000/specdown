@@ -3,7 +3,7 @@ When /^I run `specdown` from the command line in a directory that contains no 's
 end
 
 Then /^I should see the following output:$/ do |string|
-  ensure_included string, @output
+  ensure_included! string, @output
 end
 
 Given /^I have a specdown directory containing a (?:single )?markdown file:$/ do |string|
