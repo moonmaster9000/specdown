@@ -9,7 +9,7 @@ module Specdown
     attr_accessor :format
 
     def format
-      @format ||= :short
+      @format ||= :condensed
     end
 
     def reporter

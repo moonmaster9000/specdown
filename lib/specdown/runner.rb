@@ -36,6 +36,7 @@ module Specdown
       @stats.tests += 1
 
       if !undefined_implicits.empty?
+        @stats.undefined_tests += 1
         @stats.undefined_implicits += undefined_implicits
         EventServer.event :test_undefined, self
       else

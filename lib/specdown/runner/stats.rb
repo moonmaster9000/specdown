@@ -1,6 +1,6 @@
 module Specdown
   class Stats
-    attr_accessor :tests, :exceptions, :pending_exceptions, :undefined_implicits
+    attr_accessor :tests, :exceptions, :pending_exceptions, :undefined_implicits, :undefined_tests
     attr_reader :runner
 
     def initialize(source_runner=nil)
@@ -9,10 +9,11 @@ module Specdown
       @exceptions = []
       @pending_exceptions = []
       @undefined_implicits = []
+      @undefined_tests = 0
     end
 
     def successes
-      @tests - failures - pendings
+      @tests - failures - pendings - undefined_tests
     end
 
     def failures
