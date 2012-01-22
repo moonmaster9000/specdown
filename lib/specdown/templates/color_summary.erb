@@ -3,13 +3,29 @@
 ---------------------------------------------------------------------------
 <%= Term::ANSIColor.bold format_stat("markdown", @report_summary.num_markdowns)   %>
 <%= Term::ANSIColor.bold format_stat("test",     @report_summary.num_tests)       %>
-<%= Term::ANSIColor.green format_stat("success",  @report_summary.num_successes)  %>
-<%= Term::ANSIColor.red format_stat("failure",  @report_summary.num_failures)     %>
+<%= Term::ANSIColor.cyan format_stat("pending test",  @report_summary.num_pendings) %>
+<%= Term::ANSIColor.green format_stat("success", @report_summary.num_successes)   %>
+<%= Term::ANSIColor.red format_stat("failure",   @report_summary.num_failures)    %>
+<%= Term::ANSIColor.yellow(@report_summary.num_undefined.to_s + " undefined") %>
 ---------------------------------------------------------------------------
-
 <% runners.map(&:stats).each do |stat| %>
 <% stat.exceptions.each do |e| %>
-<%= Term::ANSIColor.bold(Term::ANSIColor.blue "In #{e.test_filename}") %>: <%= Term::ANSIColor.bold(Term::ANSIColor.red "#<#{e.exception_class}>:") %> <%=e.exception_message%>
+<%= Term::ANSIColor.bold(Term::ANSIColor.cyan "In #{e.test_filename}") %>: <%= Term::ANSIColor.bold(Term::ANSIColor.red "#<#{e.exception_class}>:") %> <%=e.exception_message%>
 <%= Term::ANSIColor.red e.exception_backtrace.join("\n") %>
 <% end %>
+<% end %>
+<% runners.collect(&:stats).collect(&:pending_exceptions).flatten.each do |pending_exception| %>
+<%= Term::ANSIColor.bold(Term::ANSIColor.cyan "In #{pending_exception.test_filename}") %>: <%= Term::ANSIColor.bold(Term::ANSIColor.red "#<#{pending_exception.exception_class}>:") %> <%=pending_exception.exception_message%>
+<%= Term::ANSIColor.red pending_exception.exception_backtrace.join("\n") %>
+<% end %>
+<% if @report_summary.num_undefined > 0 %>
+<%= Term::ANSIColor.yellow 'Now add the following implicit spec definition to a file suffixed with ".specdown":'%>
+<% end %>
+<% runners.collect(&:stats).collect(&:undefined_implicits).flatten.each do |implicit_key| %>
+<%= Term::ANSIColor.yellow implicit_key %>
+<%= Term::ANSIColor.yellow("-" * implicit_key.length) %>
+
+<%= Term::ANSIColor.yellow "    pending # replace this with the code you wish you had" %>
+
+
 <% end %>

@@ -1,5 +1,12 @@
 ## CHANGELOG
 
+## 0.4.0.beta.1
+
+First beta release with implicit specs support. See the "Implicit Specs"
+section in the README for details!
+
+Also, output format now defaults to "condensed".
+
 ## 0.3.0
 
 NOTICE: Non-backwards compatible release.

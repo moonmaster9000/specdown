@@ -1,0 +1,4 @@
+An implicit spec.
+--------------------------
+
+    raise "oops!" unless 1 == 1 

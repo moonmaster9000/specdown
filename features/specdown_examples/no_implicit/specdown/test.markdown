@@ -1,0 +1,3 @@
+# Heading
+
+**An implicit spec.**
