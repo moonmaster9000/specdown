@@ -210,6 +210,8 @@ executed, then just don't specifically flag it as Ruby:
 
 ## Implicit Specs
 
+**Note: This feature requires version 0.4.0.beta.1 or greater.** 
+
 In all of the examples so far, we've made all code that we want executed
 explicit within the markdown. Sometimes, however, it's advantageous to
 simply state a specification, and then map that to code
