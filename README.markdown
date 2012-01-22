@@ -208,7 +208,7 @@ executed, then just don't specifically flag it as Ruby:
     puts "I execute!"
     ```
 
-<h2 id="implicit">Implicit Specs</h2>
+## Implicit Specs
 
 In all of the examples so far, we've made all code that we want executed
 explicit within the markdown. Sometimes, however, it's advantageous to
@@ -413,10 +413,10 @@ You can also configure this in your env.rb by setting
 `Specdown::Config.format` to either `:short` or `:condensed`:
 
 ```ruby
-Specdown::Config.format = :condensed
+Specdown::Config.format = :short
 ```
 
-The default is `:short`.
+The default is `:condensed`.
 
 ## TODO
 
