@@ -208,7 +208,7 @@ executed, then just don't specifically flag it as Ruby:
     puts "I execute!"
     ```
 
-## Implicit Specs
+<h2 id="implicit">Implicit Specs</h2>
 
 In all of the examples so far, we've made all code that we want executed
 explicit within the markdown. Sometimes, however, it's advantageous to
