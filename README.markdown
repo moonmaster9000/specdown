@@ -420,14 +420,6 @@ Specdown::Config.format = :short
 
 The default is `:condensed`.
 
-## TODO
-
-This library is quite new, but I am rapidly adding features to it. Here's what is on the immediate horizon:
-
-* allow flagged text in the markdown to execute code, like a cucumber step definition
-* offer the option of outputing the actual markdown while it executes, instead of "..F....FF......"
-* Better stack traces / reporting
-
 ## LICENSE
 
 This software is [public domain](http://en.wikipedia.org/wiki/Public_domain). GO WILD
