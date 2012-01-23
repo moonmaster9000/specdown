@@ -269,9 +269,9 @@ The article should now be deleted from the database.
 ```
 
 The ".specdown" file is simply a markdown file with a different
-extension. It should consist of an unordered list of spec / definition pairs.
+extension. It should consist simply of headings (of any level) and code blocks. Any other elements within the file will simply be ignore by `specdown`. This allows you to organize the file and add extra comments into it in any way you desire.  
 
-Note that we didn't surround our code with a github-flavored backtick
+Also, Note that we didn't surround our code with a github-flavored backtick
 fence. Since ".specdown" files are solely used for defining implicit
 specifications, it's assumed that all code blocks (unless they're
 spefically marked as something other than ruby) will be executed.
