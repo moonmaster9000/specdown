@@ -99,6 +99,18 @@ Given /^The `Specdown::Test\.around_execute` method allows you to add code that 
   around.should be(false)
 end
 
+Given /^You can remove all `Specdown::Test` callbacks by calling `Specdown::Test\.remove_callbacks!`$/ do
+  Specdown::Test.before_execute do |test|
+    puts "I'm a callback!"
+  end
+
+  Specdown::Test.before_hooks["execute"].should_not be_empty
+
+  Specdown::Test.remove_callbacks!
+
+  Specdown::Test.before_hooks["execute"].should be_empty
+end
+
 def generate_test(status)
   @test = Specdown::Test.new
 

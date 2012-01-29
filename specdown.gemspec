@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "gitdown", "~> 0.0.2"
   s.add_dependency "term-ansicolor", "~> 1.0.7"
-  s.add_dependency "hook", "~> 0.0.1"
+  s.add_dependency "hook", "~> 0.0.2"
   
   s.add_development_dependency "cucumber"
   s.add_development_dependency "rspec"

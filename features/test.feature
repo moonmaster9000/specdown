@@ -73,6 +73,8 @@ Feature: Specdown::Test
       end
 
 
+  Scenario: Reset callbacks
+    * You can remove all `Specdown::Test` callbacks by calling `Specdown::Test.remove_callbacks!`
 
   Scenario: Add code
     Given a `Specdown::Test` instance:
@@ -127,5 +129,3 @@ Feature: Specdown::Test
           puts "I run around every test!"
         end
       """
-
-
