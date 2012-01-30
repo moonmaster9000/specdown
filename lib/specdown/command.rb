@@ -15,6 +15,8 @@ module Specdown
         parse_options
         run
       end
+
+      exit(@readmes.count == @readmes.select {|readme| readme.exceptions.empty? && readme.undefined_implicits.empty?}.count)
     end
     
     private

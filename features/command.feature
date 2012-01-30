@@ -4,6 +4,17 @@ Feature: `specdown` command
 
   By default, running `specdown` at a command prompt will cause specdown to look in the current working directory for a "specdown" directory. If it finds a directory called `specdown`, it will eval all code files it finds, then load all "markdown" files and run them, providing you with a report at the end.
 
+  @focus
+  Scenario: `specdown` exits with status "0" if all tests pass
+    When I run `specdown` from the command line for a passing readme
+    Then it should exit with status 0
+    When I run `specdown` from the command line for a pending readme
+    Then it should not exit with status 0
+    When I run `specdown` from the command line for a failing readme
+    Then it should not exit with status 0
+    When I run `specdown` from the command line for a undefined readme
+    Then it should not exit with status 0
+
   Scenario: `specdown` with no arguments, and no specdown directory
 
     When I run `specdown` from the command line in a directory that contains no 'specdown' directory
@@ -147,7 +158,6 @@ Feature: `specdown` command
       * `specdown -f short`
       * `specdown --format=short`
 
-  @focus
   Scenario: short summary output
     * The following commands should output summary information for each file run to STDOUT:
       * `specdown -f condensed`

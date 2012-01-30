@@ -1,4 +1,9 @@
-## CHANGELOG
+# CHANGELOG
+
+## 0.4.0.beta.3
+
+Specdown now exits with status "0" if and only if all tests pass.
+Undefined, pending, and failing specs will cause a non-zero exit status.
 
 ## 0.4.0.beta.2
 

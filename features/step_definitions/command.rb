@@ -2,6 +2,32 @@ When /^I run `specdown` from the command line in a directory that contains no 's
   @output = `bundle exec ruby -I ./lib ./bin/specdown`
 end
 
+When /^I run `specdown` from the command line for a passing readme$/ do
+  @directory = "features/specdown_examples/passing_specs"
+end
+
+Then /^it should exit with status 0$/ do
+  bundle_exec! "specdown"
+  $?.to_i.should == 0
+end
+
+Then /^it should not exit with status 0$/ do
+  bundle_exec! "specdown"
+  $?.to_i.should_not == 0
+end
+
+When /^I run `specdown` from the command line for a pending readme$/ do
+  @directory = "features/specdown_examples/pending_specs"
+end
+
+When /^I run `specdown` from the command line for a failing readme$/ do
+  @directory = "features/specdown_examples/failing_specs"
+end
+
+When /^I run `specdown` from the command line for a undefined readme$/ do
+  @directory = "features/specdown_examples/undefined_specs"
+end
+
 Then /^I should see the following output:$/ do |string|
   ensure_included! string, @output
 end
