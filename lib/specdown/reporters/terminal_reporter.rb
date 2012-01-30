@@ -24,14 +24,14 @@ module Specdown
     def print_end
     end
 
-    def print_runner_start(runner)
-      print "#{runner.file_name}: "
+    def print_readme_start(readme)
+      print "#{readme.file_name}: "
     end
 
-    def print_runner_summary(runner)
+    def print_readme_summary(readme)
     end
 
-    def print_runner_end(runner)
+    def print_readme_end(readme)
       print "\n"
     end
 
@@ -57,8 +57,8 @@ module Specdown
       print undefined
     end
 
-    def print_summary(runners)
-      @report_summary = summary(runners)
+    def print_summary(readmes)
+      @report_summary = summary(readmes)
       bounding = binding rescue proc {}
       template.run bounding
     end

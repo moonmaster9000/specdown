@@ -1,9 +1,20 @@
 module Specdown
   class Command
+    include ::Hook
+    hook :execute
+
+    attr_reader :readmes
+
+    def initialize
+      @readmes = []
+    end
+
     def execute
-      load_test_environment
-      parse_options
-      run
+      with_hooks :execute do
+        load_test_environment
+        parse_options
+        run
+      end
     end
     
     private
@@ -18,15 +29,9 @@ module Specdown
     end
 
     def run
-      @results = []
-      
-      Kernel.at_exit do
-        Specdown::EventServer.event :command_complete, @results
-      end
-      
       Specdown::Config.tests.each do |markdown| 
-        @results << Runner.new(markdown)
-        @results.last.run
+        @readmes << Specdown::Readme.new(markdown)
+        @readmes.last.execute
       end
     end
   end

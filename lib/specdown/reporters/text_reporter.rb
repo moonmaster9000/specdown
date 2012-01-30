@@ -11,11 +11,11 @@ module Specdown
       @file.write "\n\n"
     end
 
-    def print_runner_start(runner)
-      @file.write(runner.file_name + ": ")
+    def print_readme_start(readme)
+      @file.write(readme.file_name + ": ")
     end
 
-    def print_runner_end(runner)
+    def print_readme_end(readme)
       @file.write "\n\n" 
     end
 
@@ -39,8 +39,8 @@ module Specdown
       @file.close
     end
 
-    def print_summary(runners)
-      @report_summary = summary(runners)
+    def print_summary(readmes)
+      @report_summary = summary(readmes)
       bounding = binding rescue proc {}
       @file.write template.result(bounding)
     end

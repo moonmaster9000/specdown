@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+## 0.4.0.beta.2
+
+Refactoring everything. Hopefully it all works.
+
 ## 0.4.0.beta.1
 
 First beta release with implicit specs support. See the "Implicit Specs"

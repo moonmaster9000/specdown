@@ -1,8 +1,8 @@
-When /^I generate a `Specdown::Runner` instance from it:$/ do |string|
+When /^I generate a `Specdown::Readme` instance from it:$/ do |string|
   eval string
 end
 
-Then /^I should be able to run the tests:$/ do |string|
+Then /^I should be able to execute the tests:$/ do |string|
   eval string
 end
 

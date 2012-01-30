@@ -3,7 +3,7 @@ Given /^the following exception:$/ do |string|
   eval string
 end
 
-Given /^the following fake runner:$/ do |string|
+Given /^the following fake readme:$/ do |string|
   eval string
 end
 

@@ -1,22 +1,22 @@
 module Specdown
   module Reporter
-    def summary(runners)
-      ReportSummary.new(runners)
+    def summary(readmes)
+      ReportSummary.new(readmes)
     end
 
     def print_start
       raise NotImplementedError
     end
 
-    def print_runner_start(runner)
+    def print_readme_start(readme)
       raise NotImplementedError
     end
 
-    def print_runner_summary(runner)
+    def print_readme_summary(readme)
       raise NotImplementedError
     end
 
-    def print_runner_end(runner)
+    def print_readme_end(readme)
       raise NotImplementedError
     end
 
@@ -28,7 +28,7 @@ module Specdown
       raise NotImplementedError
     end
     
-    def print_summary(runners)
+    def print_summary(readmes)
       raise NotImplementedError
     end
 
