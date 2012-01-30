@@ -1,27 +1,25 @@
 
 
 ---------------------------------------------------------------------------
-<%= format_stat("markdown", @report_summary.num_markdowns)    %>
-<%= format_stat("test",     @report_summary.num_tests)        %>
-<%= format_stat("pending test",  @report_summary.num_pendings)%>
-<%= format_stat("success",  @report_summary.num_successes)    %>
-<%= format_stat("failure",  @report_summary.num_failures)     %>
+<%= format_stat("markdown",       @report_summary.num_markdowns)  %>
+<%= format_stat("test",           @report_summary.num_tests)      %>
+<%= format_stat("pending test",   @report_summary.num_pending)    %>
+<%= format_stat("success",        @report_summary.num_passing)    %>
+<%= format_stat("failure",        @report_summary.num_failing)    %>
 <%= @report_summary.num_undefined %> undefined
 ---------------------------------------------------------------------------
-<% runners.map(&:stats).each do |stat| %>
-<% stat.exceptions.each do |e| %>
+<% readmes.collect(&:exceptions).flatten.each do |e| %>
 In <%=e.test_filename%>: <#<%=e.exception_class%>> <%=e.exception_message%>
 <%= e.exception_backtrace.join "\n" %>
 <% end %>
-<% stat.pending_exceptions.each do |e| %>
+<% readmes.collect(&:pending_exceptions).flatten.each do |e| %>
 In <%=e.test_filename%>: <#<%=e.exception_class%>> <%=e.exception_message%>
 <%= e.exception_backtrace.join "\n" %>
-<% end %>
 <% end %>
 <% if @report_summary.num_undefined > 0 %>
 Now add the following implicit spec definition to a file suffixed with ".specdown":
 <% end %>
-<% runners.collect(&:stats).collect(&:undefined_implicits).flatten.each do |implicit_key| %>
+<% readmes.collect(&:undefined_implicits).flatten.each do |implicit_key| %>
 <%= implicit_key %>
 <%= "-" * implicit_key.length %>
 

@@ -1,8 +1,8 @@
-Given /^the following runner:$/ do |string|
+Given /^the following readme:$/ do |string|
   eval string
 end
 
-When /^I run the tests in the runner:$/ do |string|
+When /^I run the tests in the readme:$/ do |string|
   eval string
 end
 
@@ -17,7 +17,7 @@ Given /^the following of Specdown::Stats instances:$/ do |string|
   eval string
 end
 
-Then /^`Specdown::Reporter\.new\.summary\(@runner\)` should return a report summary object:$/ do |string|
+Then /^`Specdown::Reporter\.new\.summary\(@readme\)` should return a report summary object:$/ do |string|
   eval string
 end
 

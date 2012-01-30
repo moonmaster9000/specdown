@@ -6,14 +6,14 @@ Feature: Specdown::ExceptionFacade
       
       exception = Exception.new "exception simulation"
 
-  And given the following fake test_runner:
+  And given the following fake test readme:
 
-      runner = Class.new { attr_accessor :file_name }.new
-      runner.file_name = "test_file.markdown"
+      readme = Class.new { attr_accessor :file_name }.new
+      readme.file_name = "test_file.markdown"
 
   We can now generate an exception facade:
 
-      exception_facade = Specdown::ExceptionFacade.new exception, runner
+      exception_facade = Specdown::ExceptionFacade.new exception, readme
 
       exception_facade.test_filename.should       == "test_file.markdown"
       exception_facade.exception_class.should     == Exception
@@ -26,15 +26,15 @@ Feature: Specdown::ExceptionFacade
         @exception = Exception.new "exception simulation"
       """
 
-    And the following fake runner:
+    And the following fake readme:
       """
-        @runner = Class.new { attr_accessor :file_name }.new
-        @runner.file_name = "test_file.markdown"
+        @readme = Class.new { attr_accessor :file_name }.new
+        @readme.file_name = "test_file.markdown"
       """
 
     When I generate an exception facade:
       """
-        @exception_facade = Specdown::ExceptionFacade.new @exception, @runner
+        @exception_facade = Specdown::ExceptionFacade.new @exception, @readme
       """
 
     Then it should return all kinds of information about the exception and it's context:

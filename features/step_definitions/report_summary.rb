@@ -1,3 +1,3 @@
-Then /^`Specdown::ReportSummary\.new\(@runner\)` should give me aggregate statistics about my run:$/ do |string|
+Then /^`Specdown::ReportSummary\.new\(@readme\)` should give me aggregate statistics about my readme execution:$/ do |string|
   eval string
 end

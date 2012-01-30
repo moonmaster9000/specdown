@@ -1,14 +1,14 @@
 Feature: Specdown::ReportSummary
   
-  A `Specdown::ReportSummary` will provide you with aggregate statistical information about your test suite runners.
+  A `Specdown::ReportSummary` will provide you with aggregate statistical information about your readmes.
 
-  For example, suppose you have several runners that you've executed. You could pass one or more of them off to a `Specdown::ReportSummary` to obtain the aggregate totals:
+  For example, suppose you have several readmes that you've executed. You could pass one or more of them off to a `Specdown::ReportSummary` to obtain the aggregate totals:
 
-      summary = Specdown::ReportSummary.new(runners)
+      summary = Specdown::ReportSummary.new(readmes)
       summary.num_markdowns
       summary.num_tests
-      summary.num_failures
-      summary.num_successes
+      summary.num_failing
+      summary.num_passing
   
   Scenario: A Specdown::Reporter instantiated with a single stats object
 
@@ -43,23 +43,23 @@ Feature: Specdown::ReportSummary
       ```
       """
     
-    And the following runner:
+    And the following readme:
       """
-        @runner = Specdown::Runner.new("features/fixtures/parser_example.markdown")
-      """
-
-    When I run the tests in the runner:
-      """
-        @runner.run
+        @readme = Specdown::Readme.new("features/fixtures/parser_example.markdown")
       """
 
-    Then `Specdown::ReportSummary.new(@runner)` should give me aggregate statistics about my run:
+    When I run the tests in the readme:
       """
-        summary = Specdown::ReportSummary.new(@runner)
+        @readme.execute
+      """
+
+    Then `Specdown::ReportSummary.new(@readme)` should give me aggregate statistics about my readme execution:
+      """
+        summary = Specdown::ReportSummary.new(@readme)
         summary.num_markdowns.should == 1
         summary.num_tests.should == 2
-        summary.num_failures.should == 1
-        summary.num_successes.should == 1
+        summary.num_failing.should == 1
+        summary.num_passing.should == 1
         summary.exceptions.count.should == 1
         summary.exceptions.first.test_filename.should == "parser_example.markdown"
         summary.exceptions.first.exception_class.should == RuntimeError

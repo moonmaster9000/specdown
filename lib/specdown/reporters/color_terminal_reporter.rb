@@ -16,8 +16,8 @@ module Specdown
       Term::ANSIColor.yellow super
     end
 
-    def print_runner_start(runner)
-      print Term::ANSIColor.bold("#{runner.file_name}: ")
+    def print_readme_start(readme)
+      print Term::ANSIColor.bold("#{readme.file_name}: ")
     end
 
     private

@@ -65,8 +65,8 @@ Feature: Specdown::Test
 
       Specdown::Test.after_execute do |test|
         case test.status
-          when :succeeded then Specdown.reporter.print_success(test)
-          when :failed    then Specdown.reporter.print_failure(test)
+          when :passing   then Specdown.reporter.print_success(test)
+          when :failing   then Specdown.reporter.print_failure(test)
           when :pending   then Specdown.reporter.print_pending(test)
           when :undefined then Specdown.reporter.print_undefined(test)
         end

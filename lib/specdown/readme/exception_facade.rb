@@ -1,8 +1,8 @@
 module Specdown
   class ExceptionFacade
-    def initialize(exception, runner)
+    def initialize(exception, readme)
       @exception = exception
-      @runner = runner
+      @readme = readme
     end
 
     def exception_class
@@ -18,7 +18,7 @@ module Specdown
     end
 
     def test_filename
-      @runner.file_name
+      @readme.file_name
     end
   end
 end

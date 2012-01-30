@@ -3,7 +3,6 @@ module Specdown
   
   def reset!
     Config.reset!
-    Hooks.reset!
   end
 
   def sandbox
@@ -15,14 +14,26 @@ module Specdown
   end
 
   def before(*filters, &callback)
-    Hooks.before << Hook.new(*filters, &callback)
+    Specdown::Test.before_execute do |test|
+      if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
+        callback.call
+      end
+    end
   end
 
   def after(*filters, &callback)
-    Hooks.after << Hook.new(*filters, &callback)
+    Specdown::Test.after_execute do |test|
+      if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
+        callback.call
+      end
+    end
   end
 
   def around(*filters, &callback)
-    Hooks.around << Hook.new(*filters, &callback)
+    Specdown::Test.around_execute do |test|
+      if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
+        callback.call
+      end
+    end
   end
 end
