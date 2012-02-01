@@ -117,16 +117,16 @@ However, at this point we have not yet written any `ruby` code blocks inside our
     Usage
     -------------------
 
-    You'll use the `Todo` method to interact with your list. For example, to see what's inside your List, simply:
+    You'll use the `todo` method to interact with your list. For example, to see what's inside your list, simply:
 
     ```ruby
-    Todo #==> []
+    todo #==> []
     ```
 
 
-We've just created our first executable test. When we surrounded the `Todo` code with a `ruby` backtick fence, we told specdown to execute that code. The "#==> []" is of course not executable - it's just a comment. 
+We've just created our first executable test. When we surrounded the `todo` code with a `ruby` backtick fence, we told specdown to execute that code. The "#==> []" is of course not executable - it's just a comment. 
 
-Now if you run the specdown command, you'll get an exception report telling you that the "Todo" constant is undefined:
+Now if you run the specdown command, you'll get an exception report telling you that the "todo" constant is undefined:
 
     $ specdown readme.markdown
       
@@ -139,7 +139,7 @@ Now if you run the specdown command, you'll get an exception report telling you 
       1 failing
       ----------------------------
 
-      In readme.markdown: #<NameError>: (eval):2:in `execute_code': uninitialized constant Todo
+      In readme.markdown: #<NameError>: (eval):2:in `execute_code': undefined method `todo'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:28:in `execute_code'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:17:in `execute'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
@@ -165,7 +165,7 @@ How can we rectify that?
 Create a "todo.rb" file inside your current working directory, and add the following code to it:
 
 ```ruby
-def Todo
+def todo
 end
 ```
 
@@ -177,26 +177,33 @@ require "todo"
 
 Run the specdown command again, and all tests should pass.
 
-Next, let's show people how to add items to our `Todo` list:
+Next, let's show people how to add items to our `todo` list:
 
       
-    To add an item to your `Todo` list, simply pass a string to the `Todo` method:
+    To add an item to your `todo` list, simply pass a string to the `todo!` method:
 
     ```ruby
-    Todo 'buy groceries'
+    todo! 'buy groceries'
     ```
     
-    **"buy groceries" is now in your Todo list.** Call the `Todo` method again to confirm.
+    **"buy groceries" is now in your todo list.** Call the `todo` method again to confirm.
 
-    Lastly, to remove an item from your list, pass it to the `Done!` method:
+    Lastly, to remove an item from your list, pass it to the `done!` method:
 
     ```ruby
-    Done! 'buy groceries'
+    done! 'buy groceries'
     ```
     
     **Your list should now be empty again**.
 
-Notice that we surrounded some assertions with double stars. Specdown interprets these as "implicit" assertions. We'll have to define them. Run "specdown" and see for yourself:
+Notice that we surrounded some assertions with double stars. Run the `specdown` command. First, it will complain that the "todo!" method is not implemented. Write just enough code to get it to pass:
+
+```ruby
+def todo!(list_item)
+end
+```
+
+Now running "specdown" will report an undefined "implicit" assertion:
 
     $ specdown readme.markdown
       
@@ -213,14 +220,8 @@ Notice that we surrounded some assertions with double stars. Specdown interprets
 
       Now add the following implicit spec definition to a file suffixed with ".specdown":
 
-      "buy groceries" is now in your Todo list
+      "buy groceries" is now in your todo list
       ----------------------------------------
-
-          pending # replace this with the code you wish you had
-
-
-      Your list should now be empty again
-      -----------------------------------
 
           pending # replace this with the code you wish you had
 
@@ -236,38 +237,31 @@ If you rerun the `specdown` command, you'll get notified that your test is pendi
 
 Now run `bundle` at the command line. Next, update your "readme.specdown" file and fill out the tests:
 
-    "buy groceries" is now in your Todo list
+    "buy groceries" is now in your todo list
     ----------------------------------------
 
-        Todo.should include("buy groceries")
+        todo.should include("buy groceries")
 
-
-    Your list should now be empty again
-    -----------------------------------
-
-        Todo.should be_empty
-
-Great! Now run `bundle exec specdown` and watch your tests fail! All you have to do now is implement the code needed to make adding and removing items from your Todo list work. I'll leave that you.
-
+Great! Now run `bundle exec specdown` and watch your tests fail! Now you need to 
 
 ### Implicit v. Explicit Assertions
 
 Note that nothing requires us to create implicit assertions. We could have just as easily embedded these assertions in our main readme:
 
-    To add an item to your `Todo` list, simply pass a string to the `Todo` method:
+    To add an item to your `todo` list, simply pass a string to the `todo` method:
 
     ```ruby
-    Todo 'buy groceries'
-    Todo.should == ['buy groceries']
+    todo! 'buy groceries'
+    todo.should == ['buy groceries']
     ```
     
-    Call the `Todo` method yourself to confirm.
+    Call the `todo` method yourself to confirm.
 
-    Lastly, to remove an item from your list, pass it to the `Done!` method:
+    Lastly, to remove an item from your list, pass it to the `done!` method:
 
     ```ruby
-    Done! 'buy groceries'
-    Todo.should == []
+    done! 'buy groceries'
+    todo.should == []
     ```
 
 However, in doing so, I feel that in this particular case, we've sacrificied the readability (and utility) of our README.
