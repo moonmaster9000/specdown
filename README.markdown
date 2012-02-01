@@ -258,7 +258,7 @@ Note that nothing requires us to create implicit assertions. We could have just 
 
     ```ruby
     todo! 'buy groceries'
-    todo.should == ['buy groceries']
+    todo.should include('buy groceries')
     ```
     
     Call the `todo` method yourself to confirm.
@@ -267,7 +267,7 @@ Note that nothing requires us to create implicit assertions. We could have just 
 
     ```ruby
     done! 'buy groceries'
-    todo.should == []
+    todo.should be_empty
     ```
 
 However, in doing so, I feel that in this particular case, we've sacrificied the readability (and utility) of our README.
