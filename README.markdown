@@ -9,11 +9,11 @@ Write your README in markdown, and execute it with specdown.
 When you write a README for a library, a class, a command, etc., you're
 forced to stop and consider your user:
 
-* how are they going to use it?
-* what's the API
-* how am I going to convince them to use my library?
+* How are they going to use it?
+* What kind of API should I provide?
+* How can I convince someone to use my library?
 
-What if you write the README first, before writing your code? This is the
+What if you write the README first, before writing your tests or your code? This is the
 premise of README Driven Development. See Tom Preston-Werner's [blog post](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
 on the topic for a quick introduction to all of its benefits.
 
@@ -47,96 +47,57 @@ It comes with a `specdown` command. Try running it. Doesn't matter where.
 
 ## Usage
 
-Let's write a simple test in ([github-flavored](http://github.github.com/github-flavored-markdown/)) markdown, and execute it with specdown. Create a "specdown" directory, then save the following text into a file inside of it. I'll assume you're calling it "example.markdown":
+Let's develop a README for a simple todo list library. We'll be using [github-flavored](http://github.github.com/github-flavored-markdown/) markdown for all of our specdown. 
 
-    # Our first test!
+We'll start by describing our library:
 
-    This is our very first test. It's going to blow your mind.
+    Todo
+    ====================
 
-    ```ruby
-    raise "WTF?" unless 1 == 1
-    ```
+    The `todo` gem provides a simple ruby DSL for managing your TO DO list via IRB. 
 
-Ok, if you've been following along, then `ls -R` should return the following directory structure:
 
-```sh
-$ ls -R
-  
-  specdown/
-    example.markdown
-```
-
-Great. Now run the `specdown` command:
-
-```sh
-    $ specdown
-
-        .
-
-        1 markdown
-        1 test
-        1 success
-        0 failures
-```
-
-Booya!
-
-### How does it work?
-
-`specdown` loads any "markdown" files it can find inside the "specdown" directory, parses them into trees, then performs exhaustive depth-first searches on the trees to execute the code.
-
-Let's update our README to help illustrate this:
-
-    # Our first test!
-
-    This is our very first test. It's going to blow your mind.
+    Why?
+    --------------------------
     
-    ```ruby
-    raise "WTF?" unless 1 == 1
-    ```
+    Most people would prefer to manage their TODO list through a website, mobile app, or desktop app.
+    But some geeks prefer doing everything in the terminal. If you're that kind of geek, read on.
 
-    ## A Subsection
 
-    In this section, we're going to create a variable.
+    Installation
+    --------------------------
 
-    ```ruby
-    name = "moonmaster9000"
-    ```
+    To get started, first install the "todo" gem:
 
-    ### A sub subsection
-
-    In this subsection, we have access to anything created or within scope in parent sections:
-
-    ```ruby
-    raise "name not in scope" if !defined? name
-    ```
-
-    ## Another Subsection
-
-    In this subsection, we don't have access to the "name" variable. Think of your markdown as a tree.
+        $ gem install todo
     
-    ```ruby
-    raise "name in scope" if defined? name
-    ```
+    Next, fire up IRB and load your gem:
 
-Read through that. I'm giving you some important scoping hints in it. 
-
-Save it, run it.
-
-```sh
-$ specdown
-
-    ..
+        $ irb
+        > require 'rubygems'
+        > require 'todo'
     
-    1 markdown
-    2 tests
-    0 failures
-```
+    You're now ready to start interacting with your TODO list via the IRB prompt. 
 
-Notice how the headers in your markdown form a tree?
 
-```sh
-                #Our first test!
+We've started by first describing what our library is, why you would possibly want to use it, and how to install it and load it. 
+
+We haven't written any real code yet, but let's go ahead and let specdown take a crack at executing it. Save your readme in your current working directory (I'm going to assume you call it "readme.markdown"), then run `specdown readme.markdown` at the command line.
+
+    $ specdown readme.markdown
+      
+      readme.markdown: ..
+
+      1 markdown
+      2 tests
+      2 passing
+      0 failures
+
+Interesting. Specdown found two tests inside our README, then executed them and found that they were passing. But what were those tests?
+
+Specdown works by parsing a README into a tree, letting the header structure form the nodes of the tree, and the `ruby` codeblocks inside of each section form the body of a test. Here's what our header tree looks like so far:
+
+                    #Todo
                     /    \
                    /      \
                   /        \
@@ -144,137 +105,172 @@ Notice how the headers in your markdown form a tree?
                 /            \
                /              \
               /                \
-      ##A Subection       ##Another Subsection
-            /
-           /
-          /
-    ###A sub subsection
-```
+          ##Why?             ##Installation
 
-Specdown turned that tree into two tests. The first test (#Our first test! --> ##A Subsection --> ###A sub subsection):
+Specdown performs an exhaustive depth-first search on the tree from the root to each leaf, collecting `ruby` codeblocks along the way. Our two tests are thus:
+
+* #Todo -> ##Why?
+* #Todo -> ##Installation
+
+However, at this point we have not yet written any `ruby` code blocks inside our markdown, so the tests are empty (and therefore passing by default). Let's change that. Add the following section to the end of your README:
+
+    Usage
+    -------------------
+
+    You'll use the `Todo` method to interact with your list. For example, to see what's inside your List, simply:
+
+    ```ruby
+    Todo #==> []
+    ```
+
+
+We've just created our first executable test. When we surrounded the `Todo` code with a `ruby` backtick fence, we told specdown to execute that code. The "#==> []" is of course not executable - it's just a comment. 
+
+Now if you run the specdown command, you'll get an exception report telling you that the "Todo" constant is undefined:
+
+    $ specdown readme.markdown
+      
+      readme.markdown: ..F
+
+      ----------------------------
+      1 markdown
+      2 tests
+      1 passing
+      1 failing
+      ----------------------------
+
+      In readme.markdown: #<NameError>: (eval):2:in `execute_code': uninitialized constant Todo
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:28:in `execute_code'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:17:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:16:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/gitdown-0.0.2/lib/kramdown/options.rb:367:in `to_proc'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:33:in `map'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:33:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:32:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:36:in `run'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:34:in `each'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:34:in `run'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:16:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:13:in `execute'
+      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/bin/specdown:4
+      /Users/user/.rvm/gems/ruby-1.9.3/bin/specdown:19:in `load'
+      /Users/user/.rvm/gems/ruby-1.9.3/bin/specdown:19
+
+
+How can we rectify that?
+
+Create a "todo.rb" file inside your current working directory, and add the following code to it:
 
 ```ruby
-raise "WTF?" unless 1 == 1
-name = "moonmaster9000"
-raise "name not in scope" if !defined? name
+def Todo
+end
 ```
 
-Here's what the second test looked like (#Our first test! --> ##Another Subsection)
+Then, create a "specdown" directory inside your current working directory, then add another ruby file "specdown/env.rb" with the following code:
 
 ```ruby
-raise "WTF?" unless 1 == 1
-raise "name in scope" if defined? name
+require "todo"
 ```
 
-## Non-executable code blocks
+Run the specdown command again, and all tests should pass.
 
-As of version `0.3.0`, you must surround any codeblocks you
-want specdown to execute with a github-flavored backtick fence. This
-change is not backwards-compatible with previous versions; you'll need
-to update your tests if you want to upgrade to this version.
+Next, let's show people how to add items to our `Todo` list:
 
-I made this change because it's likely that in the process of writing your 
-specdown, you'll want to add some code into your markdown that you don't want executed.
-Perhaps it's code in a different language, or perhaps you're showing off
-some command line functionality.
+      
+    To add an item to your `Todo` list, simply pass a string to the `Todo` method:
 
-Specdown only executes fenced codeblocks specifically flagged as `ruby`.
-Thus, if you want to add some code to your markdown that shouldn't be
-executed, then just don't specifically flag it as Ruby:
-
-    # Non-Executable Code Blocks
-    
-    Here's an example of a non-executing code block:
-    
-        $ cd /
-    
-    Here's another example of a non-executing code block:
-        
-    ```javascript
-    console.log("I'm javascript, so I won't execute.");
-    ```
-
-    A third example:
-    
-    ```
-    I'm not flagged as anything, so I won't execute.
-    ```
-
-    ## Executable codeblocks
-    
-    The only way to make a code block execute is to specifically flag it as Ruby
-    
     ```ruby
-    puts "I execute!"
+    Todo 'buy groceries'
     ```
-
-## Implicit Specs
-
-**Note: This feature requires version 0.4.0.beta.1 or greater.** 
-
-In all of the examples so far, we've made all code that we want executed
-explicit within the markdown. Sometimes, however, it's advantageous to
-simply state a specification, and then map that to code
-behind-the-scenes. They're conceptually equivalent to cucumber step
-definitions.
-
-Imagine we've written the following markdown for an imaginary `Article`
-model:
-
-    # Deleting an article from the database
     
-    Imagine we create the following article:
-        
-    ```ruby
-    article = Article.create :title => "Specdown"
-    ```
+    **"buy groceries" is now in your Todo list.** Call the `Todo` method again to confirm.
 
-    We can delete the article by simply using the `delete!` method:
+    Lastly, to remove an item from your list, pass it to the `Done!` method:
+
+    ```ruby
+    Done! 'buy groceries'
+    ```
     
+    **Your list should now be empty again**.
+
+Notice that we surrounded some assertions with double stars. Specdown interprets these as "implicit" assertions. We'll have to define them. Run "specdown" and see for yourself:
+
+    $ specdown readme.markdown
+      
+      readme.markdown: ..U
+
+      ----------------------------
+      1 markdown
+      2 tests
+      1 passing
+      1 undefined
+      0 failures
+      ----------------------------
+
+
+      Now add the following implicit spec definition to a file suffixed with ".specdown":
+
+      "buy groceries" is now in your Todo list
+      ----------------------------------------
+
+          pending # replace this with the code you wish you had
+
+
+      Your list should now be empty again
+      -----------------------------------
+
+          pending # replace this with the code you wish you had
+
+
+Create a "specdown" directory inside your current working directory, then add markdown to it. (Note: "specdown" files simply contain markdown, but are interpreted by specdown as containing implicit specifications. If you've used cucumber before, you can think of these as something similar to a cucumber step definition.)
+
+If you rerun the `specdown` command, you'll get notified that your test is pending now. We can fill in the implicit specifications thusly. I'd like to use RSpec `should` expectations to fill out my tests; luckily, if specdown detects that the "rspec" gem is installed, it will make RSpec expectations available to your tests. Otherwise, it will default to `test/unit` assertions. We can ensure that "rspec" expectations are available in our tests by creating a Gemfile inside our current working directory with the following content:
+
+    source "http://rubygems.org"
+
+    gem "rspec"
+    gem "specdown"
+
+Now run `bundle` at the command line. Next, update your "readme.specdown" file and fill out the tests:
+
+    "buy groceries" is now in your Todo list
+    ----------------------------------------
+
+        Todo.should include("buy groceries")
+
+
+    Your list should now be empty again
+    -----------------------------------
+
+        Todo.should be_empty
+
+Great! Now run `bundle exec specdown` and watch your tests fail! All you have to do now is implement the code needed to make adding and removing items from your Todo list work. I'll leave that you.
+
+
+### Implicit v. Explicit Assertions
+
+Note that nothing requires us to create implicit assertions. We could have just as easily embedded these assertions in our main readme:
+
+    To add an item to your `Todo` list, simply pass a string to the `Todo` method:
+
     ```ruby
-    article.delete!
+    Todo 'buy groceries'
+    Todo.should == ['buy groceries']
+    ```
+    
+    Call the `Todo` method yourself to confirm.
+
+    Lastly, to remove an item from your list, pass it to the `Done!` method:
+
+    ```ruby
+    Done! 'buy groceries'
+    Todo.should == []
     ```
 
-    **The article should now be deleted from the database.**
-
-Notice the emphasis around the last sentence. If we execute this with
-`specdown`, we'll recieve the following result:
-
-    $ specdown
-
-        1 markdown
-        1 test
-        0 passing
-        0 failing
-        1 undefined
-
-
-        Now add the following implicit spec definition to a file suffixed with ".specdown":
-
-        The article should now be deleted from the database.
-        ----------------------------------------------------        
-            
-            pending # replace this with the code you want
-
-If we do as it says and rerun the `specdown` command, we'll receive a
-notice that we now have a pending implicit spec. Thus, we could
-implement the pending spec like so (assuming we were using RSpec
-expectations):
-
-```markdown
-The article should now be deleted from the database.
-----------------------------------------------------        
-
-    Article.all.should be_empty
-```
-
-The ".specdown" file is simply a markdown file with a different
-extension. It should consist simply of headings (of any level) and code blocks. Any other elements within the file will simply be ignore by `specdown`. This allows you to organize the file and add extra comments into it in any way you desire.  
-
-Also, Note that we didn't surround our code with a github-flavored backtick
-fence. Since ".specdown" files are solely used for defining implicit
-specifications, it's assumed that all code blocks (unless they're
-spefically marked as something other than ruby) will be executed.
+However, in doing so, I feel that in this particular case, we've sacrificied the readability (and utility) of our README.
 
 
 ## Setting up your test environment
