@@ -196,14 +196,7 @@ Next, let's show people how to add items to our `todo` list:
     
     **Your list should now be empty again**.
 
-Notice that we surrounded some assertions with double stars. Run the `specdown` command. First, it will complain that the "todo!" method is not implemented. Write just enough code to get it to pass:
-
-```ruby
-def todo!(list_item)
-end
-```
-
-Now running "specdown" will report an undefined "implicit" assertion:
+Notice that we surrounded some assertions with double stars. Run the `specdown` command and it will report an undefined "implicit" assertion:
 
     $ specdown readme.markdown
       
@@ -226,6 +219,13 @@ Now running "specdown" will report an undefined "implicit" assertion:
           pending # replace this with the code you wish you had
 
 
+      Your list should now be empty again
+      -----------------------------------
+
+          pending # replace this with the code you wish you had
+
+
+
 Create a "specdown" directory inside your current working directory, then add markdown to it. (Note: "specdown" files simply contain markdown, but are interpreted by specdown as containing implicit specifications. If you've used cucumber before, you can think of these as something similar to a cucumber step definition.)
 
 If you rerun the `specdown` command, you'll get notified that your test is pending now. We can fill in the implicit specifications thusly. I'd like to use RSpec `should` expectations to fill out my tests; luckily, if specdown detects that the "rspec" gem is installed, it will make RSpec expectations available to your tests. Otherwise, it will default to `test/unit` assertions. We can ensure that "rspec" expectations are available in our tests by creating a Gemfile inside our current working directory with the following content:
@@ -242,7 +242,13 @@ Now run `bundle` at the command line. Next, update your "readme.specdown" file a
 
         todo.should include("buy groceries")
 
-Great! Now run `bundle exec specdown` and watch your tests fail! Now you need to 
+
+    Your list should now be empty again
+    -----------------------------------
+
+        todo.should be_empty
+
+Great! Now run `bundle exec specdown` and watch your tests fail! Keep it up, implementing just enough code to get your all of your tests passing.  
 
 ### Implicit v. Explicit Assertions
 
