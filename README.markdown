@@ -142,24 +142,6 @@ Now if you run the specdown command, you'll get an exception report telling you 
       ----------------------------
 
       In readme.markdown: #<NameError>: (eval):2:in `execute_code': undefined local variable or method `todo'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:28:in `execute_code'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:17:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:16:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/gitdown-0.0.2/lib/kramdown/options.rb:367:in `to_proc'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:33:in `map'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:33:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/readme.rb:32:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:36:in `run'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:34:in `each'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:34:in `run'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:16:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/command.rb:13:in `execute'
-      /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/bin/specdown:4
-      /Users/user/.rvm/gems/ruby-1.9.3/bin/specdown:19:in `load'
-      /Users/user/.rvm/gems/ruby-1.9.3/bin/specdown:19
 
 
 How can we rectify that?
