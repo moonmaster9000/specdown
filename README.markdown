@@ -45,9 +45,11 @@ To install the `specdown` ruby gem, simply:
 
 It comes with a `specdown` command. Try running it. Doesn't matter where.
 
-## Usage
+## Tutorial
 
-Let's develop a README for a simple todo list library. We'll be using [github-flavored](http://github.github.com/github-flavored-markdown/) markdown for all of our specdown. 
+The quickest way to learn specdown is to develop a simply ruby library with it. This tutorial should take about 10 minutes. Feel free to skip to the specdown command line reference at the end of this README.
+
+Let's develop a simple todo list library. We'll be using [github-flavored](http://github.github.com/github-flavored-markdown/) markdown for all of our specdown. 
 
 We'll start by describing our library:
 
@@ -80,7 +82,7 @@ We'll start by describing our library:
     You're now ready to start interacting with your TODO list via the IRB prompt. 
 
 
-We've started by first describing what our library is, why you would possibly want to use it, and how to install it and load it. 
+Our readme gives tells you what the library is, why you might want to use it, and how to get started.  
 
 We haven't written any real code yet, but let's go ahead and let specdown take a crack at executing it. Save your readme in your current working directory (I'm going to assume you call it "readme.markdown"), then run `specdown readme.markdown` at the command line.
 
@@ -95,7 +97,7 @@ We haven't written any real code yet, but let's go ahead and let specdown take a
 
 Interesting. Specdown found two tests inside our README, then executed them and found that they were passing. But what were those tests?
 
-Specdown works by parsing a README into a tree, letting the header structure form the nodes of the tree, and the `ruby` codeblocks inside of each section form the body of a test. Here's what our header tree looks like so far:
+Specdown works by parsing a README into a tree, letting the header structure form the nodes of the tree. Here's what our tree looks like so far:
 
                     #Todo
                     /    \
@@ -117,7 +119,7 @@ However, at this point we have not yet written any `ruby` code blocks inside our
     Usage
     -------------------
 
-    You'll use the `todo` method to interact with your list. For example, to see what's inside your list, simply:
+    You'll use the `todo` method to interact with your list. For example, to see what's inside your list, simply call the `todo` method:
 
     ```ruby
     todo #==> []
@@ -139,7 +141,7 @@ Now if you run the specdown command, you'll get an exception report telling you 
       1 failing
       ----------------------------
 
-      In readme.markdown: #<NameError>: (eval):2:in `execute_code': undefined method `todo'
+      In readme.markdown: #<NameError>: (eval):2:in `execute_code': undefined local variable or method `todo'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:28:in `execute_code'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/specdown-0.4.0.beta.3/lib/specdown/test.rb:17:in `execute'
       /Users/user/.rvm/gems/ruby-1.9.3/gems/hook-0.0.2/lib/hook.rb:59:in `with_hooks'
@@ -169,7 +171,7 @@ def todo
 end
 ```
 
-Then, create a "specdown" directory inside your current working directory, then add another ruby file "specdown/env.rb" with the following code:
+Then, create a "specdown" directory inside your current working directory and add another ruby file "specdown/env.rb" with the following code:
 
 ```ruby
 require "todo"
@@ -270,7 +272,7 @@ Note that nothing requires us to create implicit assertions. We could have just 
     todo.should be_empty
     ```
 
-However, in doing so, I feel that in this particular case, we've sacrificied the readability (and utility) of our README.
+However, we've sacrificied the readability (and utility) of our README by doing so.
 
 
 ## Setting up your test environment
@@ -393,7 +395,7 @@ The reporter defaults to `Specdown::ColorTerminalReporter`.
 
 ### Report format: short or condensed
 
-Currently, we offer two report formats: short, or condensed. Short
+Currently, we offer two report formats: short and condensed. Short
 offers only the most basic information, whereas `condensed` will provide
 you with summary details per file.
 
