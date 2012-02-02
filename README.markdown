@@ -82,7 +82,7 @@ We'll start by describing our library:
     You're now ready to start interacting with your TODO list via the IRB prompt. 
 
 
-Our readme gives tells you what the library is, why you might want to use it, and how to get started.  
+Our readme tells you what the library is, why you might want to use it, and how to get started.  
 
 We haven't written any real code yet, but let's go ahead and let specdown take a crack at executing it. Save your readme in your current working directory (I'm going to assume you call it "readme.markdown"), then run `specdown readme.markdown` at the command line.
 
