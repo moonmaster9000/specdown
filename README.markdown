@@ -47,7 +47,7 @@ It comes with a `specdown` command. Try running it. Doesn't matter where.
 
 ## Tutorial
 
-The quickest way to learn specdown is to develop a simply ruby library with it. This tutorial should take about 10 minutes. Feel free to skip to the specdown command line reference at the end of this README.
+The quickest way to learn specdown is to develop a simple ruby library with it. This tutorial should take about 10 minutes. Feel free to skip to the specdown command line reference at the end of this README.
 
 Let's develop a simple todo list library. We'll be using [github-flavored](http://github.github.com/github-flavored-markdown/) markdown for all of our specdown. 
 
