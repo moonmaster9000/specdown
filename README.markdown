@@ -232,7 +232,7 @@ Now run `bundle` at the command line. Next, update your "readme.specdown" file a
 
         todo.should be_empty
 
-Great! Now run `bundle exec specdown` and watch your tests fail! Keep it up, implementing just enough code to get your all of your tests passing.  
+Great! Now run `bundle exec specdown readme.markdown` and watch your tests fail! Keep it up, implementing just enough code to get your all of your tests passing.  
 
 ### Implicit v. Explicit Assertions
 
