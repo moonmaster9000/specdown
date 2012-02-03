@@ -16,7 +16,7 @@ module Specdown
         run
       end
 
-      exit(@readmes.count == @readmes.select {|readme| readme.exceptions.empty? && readme.undefined_implicits.empty?}.count)
+      exit exit_status
     end
     
     private
@@ -35,6 +35,10 @@ module Specdown
         @readmes << Specdown::Readme.new(markdown)
         @readmes.last.execute
       end
+    end
+
+    def exit_status
+      @readmes.all? &:passing?
     end
   end
 end

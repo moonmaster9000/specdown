@@ -12,6 +12,10 @@ module Specdown
       build_tests
     end
 
+    def passing?
+      exceptions.empty? && pending_exceptions.empty? && undefined_implicits.empty?
+    end
+
     def exceptions
       @tests.collect(&:exception).compact
     end
