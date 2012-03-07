@@ -156,6 +156,7 @@ end
 Then, create a "specdown" directory inside your current working directory and add another ruby file "specdown/env.rb" with the following code:
 
 ```ruby
+$LOAD_PATH.unshift "." # ruby 1.9+
 require "todo"
 ```
 
