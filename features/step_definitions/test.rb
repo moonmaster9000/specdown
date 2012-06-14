@@ -65,9 +65,9 @@ Given /^If your test throws an exception, you can access it via the `exception` 
   @test.exception.should_not be(nil)
 end
 
-Given /^The `Specdown::Test\.before_execute` method allows you to add code that runs before every test:$/ do |string|
+Given /^The `Specdown::Test\.hook_before\(:execute\)` method allows you to add code that runs before every test:$/ do |string|
   before = false
-  Specdown::Test.before_execute do
+  Specdown::Test.hook_before(:execute) do
     before = true
   end
 
@@ -75,9 +75,9 @@ Given /^The `Specdown::Test\.before_execute` method allows you to add code that 
   before.should be(true)
 end
 
-Given /^The `Specdown::Test\.after_execute` method allows you to add code that runs after every test:$/ do |string|
+Given /^The `Specdown::Test\.hook_after\(:execute\)` method allows you to add code that runs after every test:$/ do |string|
   after = false
-  Specdown::Test.after_execute do
+  Specdown::Test.hook_after(:execute) do
     after = true
   end
 
@@ -85,9 +85,9 @@ Given /^The `Specdown::Test\.after_execute` method allows you to add code that r
   after.should be(true)
 end
 
-Given /^The `Specdown::Test\.around_execute` method allows you to add code that runs around every test:$/ do |string|
+Given /^The `Specdown::Test\.hook_around\(:execute\)` method allows you to add code that runs around every test:$/ do |string|
   around = nil
-  Specdown::Test.around_execute do
+  Specdown::Test.hook_around(:execute) do
     if around
       around = false
     else
@@ -100,13 +100,13 @@ Given /^The `Specdown::Test\.around_execute` method allows you to add code that 
 end
 
 Given /^You can remove all `Specdown::Test` callbacks by calling `Specdown::Test\.remove_callbacks!`$/ do
-  Specdown::Test.before_execute do |test|
+  Specdown::Test.hook_before(:execute) do |test|
     puts "I'm a callback!"
   end
 
   Specdown::Test.before_hooks["execute"].should_not be_empty
 
-  Specdown::Test.remove_callbacks!
+  Specdown::Test.remove_all_callbacks!
 
   Specdown::Test.before_hooks["execute"].should be_empty
 end

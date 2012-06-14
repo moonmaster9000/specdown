@@ -1,7 +1,6 @@
 module Specdown
   class Readme
     include ::Hook
-    hook :execute
 
     attr_reader :tests, :stats, :file_path
 
@@ -32,10 +31,9 @@ module Specdown
       File.basename @file_path
     end
 
+    +hook
     def execute
-      with_hooks :execute do
-        @tests.map &:execute
-      end
+      @tests.map &:execute
 
       self
     end

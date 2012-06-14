@@ -14,7 +14,7 @@ module Specdown
   end
 
   def before(*filters, &callback)
-    Specdown::Test.before_execute do |test|
+    Specdown::Test.hook_before(:execute) do |test|
       if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
         callback.call
       end
@@ -22,7 +22,7 @@ module Specdown
   end
 
   def after(*filters, &callback)
-    Specdown::Test.after_execute do |test|
+    Specdown::Test.hook_after(:execute) do |test|
       if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
         callback.call
       end
@@ -30,7 +30,7 @@ module Specdown
   end
 
   def around(*filters, &callback)
-    Specdown::Test.around_execute do |test|
+    Specdown::Test.hook_around(:execute) do |test|
       if filters.empty? || filters.any? {|filter| filter.match test.readme.file_name}
         callback.call
       end

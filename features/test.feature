@@ -61,9 +61,9 @@ Feature: Specdown::Test
 
   If a test throws an exception, that exception will be captured and made accessible via the `exception` method.
 
-  You can add callbacks to tests via the "before_execute", "after_execute", and "around_execute" methods:
+  You can add callbacks to tests via the "hook_before(:execute)", "hook_after(:execute)", and "hook_around(:execute)" methods:
 
-      Specdown::Test.after_execute do |test|
+      Specdown::Test.hook_after(:execute) do |test|
         case test.status
           when :passing   then Specdown.reporter.print_success(test)
           when :failing   then Specdown.reporter.print_failure(test)
@@ -109,21 +109,21 @@ Feature: Specdown::Test
     * If your test throws an exception, you can access it via the `exception` method
 
   Scenario: Hooks
-    * The `Specdown::Test.before_execute` method allows you to add code that runs before every test:
+    * The `Specdown::Test.hook_before(:execute)` method allows you to add code that runs before every test:
       """
         Specdown::Test.before do |test|
           puts "I run before every test!"
         end
       """
 
-    * The `Specdown::Test.after_execute` method allows you to add code that runs after every test:
+    * The `Specdown::Test.hook_after(:execute)` method allows you to add code that runs after every test:
       """
         Specdown::Test.after do |test|
           puts "I run after every test!"
         end
       """
 
-    * The `Specdown::Test.around_execute` method allows you to add code that runs around every test:
+    * The `Specdown::Test.hook_around(:execute)` method allows you to add code that runs around every test:
       """
         Specdown::Test.around do |test|
           puts "I run around every test!"

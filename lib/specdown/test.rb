@@ -1,7 +1,6 @@
 module Specdown
   class Test
     include ::Hook
-    hook :execute
 
     attr_accessor :code, :undefined_implicits
     attr_reader :status, :exception, :readme
@@ -12,10 +11,9 @@ module Specdown
       @undefined_implicits  = []
     end
 
+    +hook
     def execute   
-      with_hooks(:execute) do
-        execute_code 
-      end
+      execute_code 
     end
 
     private

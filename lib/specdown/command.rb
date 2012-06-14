@@ -1,7 +1,6 @@
 module Specdown
   class Command
     include ::Hook
-    hook :execute
 
     attr_reader :readmes
 
@@ -9,14 +8,17 @@ module Specdown
       @readmes = []
     end
 
-    def execute
-      with_hooks :execute do
-        load_test_environment
-        parse_options
-        run
-      end
+    def execute_with_hooks
+      execute
 
       exit exit_status
+    end
+
+    +hook
+    def execute
+      load_test_environment
+      parse_options
+      run
     end
     
     private

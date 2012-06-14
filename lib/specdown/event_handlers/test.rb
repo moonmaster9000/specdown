@@ -1,4 +1,4 @@
-Specdown::Test.after_execute do |test|
+Specdown::Test.hook_after(:execute) do |test|
   case test.status
     when :passing   then Specdown.reporter.print_success   test
     when :failing   then Specdown.reporter.print_failure   test
