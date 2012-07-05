@@ -8,10 +8,6 @@ module Specdown
       Term::ANSIColor.red(Term::ANSIColor.bold super)
     end
 
-    def success
-      Term::ANSIColor.blue super
-    end
-
     def undefined
       Term::ANSIColor.yellow super
     end

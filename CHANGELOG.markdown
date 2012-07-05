@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.1
+
+bug fix: make success color dots green, not blue
+
 ## 0.4.0.beta.3
 
 Specdown now exits with status "0" if and only if all tests pass.
